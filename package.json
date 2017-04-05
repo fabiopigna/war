@@ -22,8 +22,8 @@
     "@angular/router": "^3.4.0",
     "core-js": "^2.4.1",
     "pixi.js": "^4.4.2",
+    "quadtree-lib": "^1.0.2",
     "rxjs": "^5.1.0",
-    "stats-js": "^1.0.0-alpha1",
     "zone.js": "^0.7.6"
   },
   "devDependencies": {

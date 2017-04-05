@@ -1,11 +1,16 @@
+import { GBounds, GSize } from './shapes/Geometry';
+import { Unit } from './units/Unit';
+import { TextureLibrary } from './graphics/TextureLibrary';
+import { Army } from './units/army/Army';
+import { Environment } from './Environment';
 import { RectangleShape } from './shapes/RectangleShape';
 
 import { autoDetectRenderer } from 'pixi.js';
-import { SystemRenderer, Container, Graphics, Application, Point, particles } from 'pixi.js';
+import { SystemRenderer, Container, Graphics, Application, Point, particles, Sprite, Texture, extras, loaders } from 'pixi.js';
 import { Component, ElementRef, OnInit } from '@angular/core';
+import * as Quadtree from 'quadtree-lib';
 
 
-declare let Stats: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,69 +18,50 @@ declare let Stats: any;
 })
 export class AppComponent implements OnInit {
   title = 'app works!';
+
+  public fps: string;
+
   public width: number = 1024
   public height: number = 400;
-  // public app: Application;
-  public renderer: SystemRenderer
+  public app: Application;
   public stage: Container;
 
-  private stats: any;
+  public redArmy: Army;
+  public map: Map<string, Unit>;
+  public env: Environment;
+  public textureLibrary: TextureLibrary;
   constructor(private elementRef: ElementRef) {
-    this.stats = new Stats();
-    this.stats.setMode(0); // 0: fps, 1: ms 
-
-    // Align top-left 
-    this.stats.domElement.style.position = 'absolute';
-    this.stats.domElement.style.left = '0px';
-    this.stats.domElement.style.top = '0px';
-
-    document.body.appendChild(this.stats.domElement);
-
-
+    this.textureLibrary = new TextureLibrary();
   }
 
 
   ngOnInit(): void {
-    // this.app = new Application(this.width, this.height, { antialias: true });
+    this.app = new Application(this.width, this.height, { antialias: false });
+    this.map = new Map<string, Unit>();
 
 
-    this.renderer = PIXI.autoDetectRenderer(this.width, this.height, { antialias: true });
-    console.log(this.renderer )
-    this.stage = new Container();
+    this.stage = this.app.stage;
+    this.app.renderer.backgroundColor = 0xaaaaaa;
 
-
-    this.elementRef.nativeElement.appendChild(this.renderer.view);
-    // this.app.ticker.autoStart = false;
-
-    let rects: RectangleShape[] = [];
-    for (let i = 0; i < 100; i++) {
-      let rect: RectangleShape = new RectangleShape(this.stage);
-      rect.setPosition(Math.random() * this.width, Math.random() * this.height);
-      rects.push(rect);
-    }
-    rects.forEach(rect => {
-      let copy = rects.slice();
-      copy.splice(copy.indexOf(rect), 1)
-      rect.setFriends(copy);
+    this.elementRef.nativeElement.appendChild(this.app.view);
+    this.textureLibrary.load().onComplete.add(() => {
+      this.env = new Environment(this.map, this.textureLibrary);
+      this.env.worldBounds = GBounds.from(0, 0, this.width, this.height);
+      this.env.stage = this.stage;
+      this.env.quadTree = new Quadtree<Unit>({ width: this.width, height: this.height });
+      this.redArmy = new Army(this.env);
+      this.redArmy.createSoldiers(50);
+      this.app.ticker.add((delta) => this.gameLoop(delta));
     });
-
-
-    requestAnimationFrame(() => this.update());
-
-    // this.startUpdate();
-    // this.stats.end();
-
   }
 
 
-  public startUpdate() {
-    requestAnimationFrame(() => this.update());
-  }
 
-  public update() {
-    this.stats.begin();
-    this.renderer.render(this.stage);
-    this.startUpdate();
-    this.stats.end();
+
+  public gameLoop(delta: number): void {
+    this.fps = this.app.ticker.FPS.toFixed(0);
+    this.map.forEach((unit: Unit) => {
+      unit.updateLogic(delta);
+    })
   }
 }
