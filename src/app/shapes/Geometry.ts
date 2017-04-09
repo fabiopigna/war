@@ -28,7 +28,15 @@ export class GSize {
         this.height = height;
     }
 }
-export class GBounds {
+
+export interface IBounds {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}
+
+export class GBounds implements IBounds {
     public x: number;
     public y: number;
     public width: number = 0;
@@ -59,6 +67,11 @@ export class GBounds {
         bounds.height = bounds.width;
         return bounds;
     }
+
+    public static fromJSON(json: { x: number, y: number, width: number, height: number }): GBounds {
+        return GBounds.from(json.x, json.y, json.width, json.height);
+    }
+
     public static fromPoints(p0: GPoint, p1: GPoint): GBounds {
         return GBounds.from(Math.min(p0.x, p1.x), Math.min(p0.y, p1.y), Math.abs(p1.x - p0.x), Math.abs(p1.y - p0.y));
     }

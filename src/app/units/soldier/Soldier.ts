@@ -1,12 +1,9 @@
-import { Health } from './Health';
-import { Rifle } from '../shots/Rifle';
-import { Bullet } from '../shots/Bullet';
-import { GBounds, GPoint, GSize } from '../../shapes/Geometry';
 import { Environment } from '../../Environment';
+import { GPoint } from '../../shapes/Geometry';
+import { Rifle } from '../shots/Rifle';
 import { Unit } from '../Unit';
-import { getRandomid } from '../RandomId';
-import { TextureLibrary } from '../../graphics/TextureLibrary';
-import { extras, Texture, Sprite, Container } from 'pixi.js';
+import { Health } from './Health';
+import { Container, extras } from 'pixi.js';
 export class Soldier extends Unit {
 
     public container: Container;
@@ -47,7 +44,7 @@ export class Soldier extends Unit {
 
     public updateLogic(delta: number): void {
         if (this.health.isDead()) {
-            this.env.quadTree.remove(this);
+            this.canBeHit = false;
             this.container.pivot.set(this.width * 0.5, this.height);
             this.container.position.set(this.x + this.width * 0.5, this.y + this.height);
             if (this.container.rotation >= -Math.PI * 0.5) {

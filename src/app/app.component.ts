@@ -1,3 +1,4 @@
+import { NewQuadTree } from './NewQuadTree';
 import { GBounds, GSize } from './shapes/Geometry';
 import { Unit } from './units/Unit';
 import { TextureLibrary } from './graphics/TextureLibrary';
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.app = new Application(this.width, this.height, { antialias: false });
+    this.app = new Application(this.width, this.height, { antialias: true });
     this.map = new Map<string, Unit>();
 
 
@@ -48,9 +49,10 @@ export class AppComponent implements OnInit {
       this.env = new Environment(this.map, this.textureLibrary);
       this.env.worldBounds = GBounds.from(0, 0, this.width, this.height);
       this.env.stage = this.stage;
-      this.env.quadTree = new Quadtree<Unit>({ width: this.width, height: this.height });
+      // this.env.quadTree = new Quadtree<Unit>({ width: this.width, height: this.height });
       this.redArmy = new Army(this.env);
-      this.redArmy.createSoldiers(50);
+      this.redArmy.createSoldiers(100);
+      console.log(this.redArmy.soldiers)
       this.app.ticker.add((delta) => this.gameLoop(delta));
     });
   }
@@ -60,6 +62,8 @@ export class AppComponent implements OnInit {
 
   public gameLoop(delta: number): void {
     this.fps = this.app.ticker.FPS.toFixed(0);
+    this.env.quadTree = new NewQuadTree<Unit>({ x: 0, y: 0, width: this.width, height: this.height }, 10);
+    this.env.quadTree.insert(Array.from<Unit>(this.map.values()).filter(unit => unit.canBeHit));
     this.map.forEach((unit: Unit) => {
       unit.updateLogic(delta);
     })

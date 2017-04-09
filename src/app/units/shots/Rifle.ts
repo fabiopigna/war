@@ -5,7 +5,7 @@ import { Unit } from '../Unit';
 import { Environment } from '../../Environment';
 export class Rifle {
 
-    public shotArea = 150;
+    public shotArea = 50;
     public WEAPON_RECOIL_TIME = 200;
     public WEAPON_RELOAD_TIME = 3000;
     public WEAPON_AMMO = 3;
