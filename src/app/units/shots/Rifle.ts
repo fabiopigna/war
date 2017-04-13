@@ -1,3 +1,4 @@
+import { WeaponConfig } from './WeaponConfig';
 import { Soldier } from '../soldier/Soldier';
 import { Bullet } from './Bullet';
 import { GBounds, GPoint } from '../../shapes/Geometry';
@@ -5,34 +6,39 @@ import { Unit } from '../Unit';
 import { Environment } from '../../Environment';
 export class Rifle {
 
-    public shotArea = 50;
+    public shotArea = 500;
     public WEAPON_RECOIL_TIME = 200;
-    public WEAPON_RELOAD_TIME = 3000;
-    public WEAPON_AMMO = 3;
+    public WEAPON_RELOAD_TIME = 5000;
+    public WEAPON_AMMO = 5;
+    private weaponConfig: WeaponConfig;
     private lastShotTime: number;
     private startReloadingTime: number;
     private currentAmmo: number = this.WEAPON_AMMO;
 
     constructor(private env: Environment, private soldier: Soldier) {
         this.lastShotTime = performance.now();
+        this.weaponConfig = new WeaponConfig();
+        this.weaponConfig.bulletSpeed = 5;
+        this.weaponConfig.bulletTexture = this.env.textureLibrary.shotTexture.gunner;
     }
 
-    public fireShot(): void {
-        const collision: Unit[] = this.env.quadTree
-            .colliding(this.getShotArea().keepInside(this.env.worldBounds))
-            .filter(target => target.id !== this.soldier.id);
-        const target: Unit = collision.length > 0 ? collision[0] : null;
-        if (target) {
-            const targetCenter: GPoint = target.center;
-            const rotation = Math.atan2(targetCenter.y - this.soldier.center.y, targetCenter.x - this.soldier.center.x);
-            const bullet = new Bullet(this.env, this.soldier);
-            bullet.setPosition(this.soldier.center.x, this.soldier.center.y);
-            bullet.setRotation(rotation);
-            bullet.start();
-            this.currentAmmo--;
-            this.lastShotTime = performance.now();
+    public fireShot(rotation: number): void {
+        const bullet = new Bullet(this.env, this.soldier, this.weaponConfig);
+        bullet.setPosition(this.soldier.center.x, this.soldier.center.y);
+        bullet.setRotation(rotation);
+        bullet.start();
+        this.currentAmmo--;
+        this.lastShotTime = performance.now();
+    }
 
-        }
+    public getRotationToTarget(target: Unit): number {
+        const targetCenter: GPoint = target.center;
+        const rotation = Math.atan2(targetCenter.y - this.soldier.center.y, targetCenter.x - this.soldier.center.x);
+        return rotation;
+    }
+
+    public getTargets(): Unit[] {
+        return this.env.quadTree.colliding(this.getShotArea().keepInside(this.env.worldBounds))
 
     }
 

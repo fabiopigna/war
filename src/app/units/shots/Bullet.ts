@@ -1,3 +1,4 @@
+import { WeaponConfig } from './WeaponConfig';
 import { Soldier } from '../soldier/Soldier';
 import { GBounds, GPoint } from '../../shapes/Geometry';
 import { Environment } from '../../Environment';
@@ -6,19 +7,19 @@ import { extras, Sprite, Container } from 'pixi.js';
 export class Bullet extends Unit {
 
 
-
-    private BULLET_SPEED = 5;
     public sprite: Sprite;
     private rotation: number;
     private velocity: GPoint;
     private timeStart: number;
 
     private shooter: Soldier;
+    private weaponConfig: WeaponConfig;
 
-    constructor(env: Environment, shooter: Soldier) {
+    constructor(env: Environment, shooter: Soldier, weaponConfig: WeaponConfig) {
         super(env, 'bullet');
+        this.weaponConfig = weaponConfig;
         this.shooter = shooter;
-        this.sprite = new Sprite(env.textureLibrary.shotTexture);
+        this.sprite = new Sprite(weaponConfig.bulletTexture);
         this.canBeHit = false;
     }
 
@@ -32,7 +33,7 @@ export class Bullet extends Unit {
     public setRotation(rotation: number): void {
         this.rotation = rotation;
         this.sprite.rotation = rotation;
-        this.velocity = new GPoint(Math.cos(rotation) * this.BULLET_SPEED, Math.sin(rotation) * this.BULLET_SPEED);
+        this.velocity = new GPoint(Math.cos(rotation) * this.weaponConfig.bulletSpeed, Math.sin(rotation) * this.weaponConfig.bulletSpeed);
     }
 
     public start(): void {
@@ -77,4 +78,9 @@ export class Bullet extends Unit {
     public takeHit(): void {
         // do nothing
     }
+
+    public canBeTargetOf(soldier: Soldier): boolean {
+        return false;
+    }
+
 }

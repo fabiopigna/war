@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.4.0</string>
         <key>fileName</key>
-        <string>C:/Users/fabiopigna/devel/pixijs/PiXi/src/assets/sprites/soldier.tps</string>
+        <string>/home/pigna/devel/war/src/assets/sprites/soldier.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -199,10 +199,50 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">../png/black/soldier_black00.png</key>
+            <key type="filename">../png/black/soldier_black01.png</key>
+            <key type="filename">../png/black/soldier_black02.png</key>
+            <key type="filename">../png/black/soldier_black03.png</key>
+            <key type="filename">../png/black/soldier_black04.png</key>
+            <key type="filename">../png/black/soldier_black05.png</key>
+            <key type="filename">../png/black/soldier_black06.png</key>
+            <key type="filename">../png/black/soldier_black07.png</key>
+            <key type="filename">../png/black/soldier_black08.png</key>
+            <key type="filename">../png/black/soldier_black09.png</key>
+            <key type="filename">../png/black/soldier_black10.png</key>
+            <key type="filename">../png/black/soldier_black11.png</key>
+            <key type="filename">../png/black/soldier_black12.png</key>
+            <key type="filename">../png/black/soldier_black13.png</key>
+            <key type="filename">../png/black/soldier_black14.png</key>
+            <key type="filename">../png/black/soldier_black15.png</key>
+            <key type="filename">../png/black/soldier_black16.png</key>
+            <key type="filename">../png/black/soldier_black17.png</key>
+            <key type="filename">../png/black/soldier_black18.png</key>
+            <key type="filename">../png/black/soldier_black19.png</key>
+            <key type="filename">../png/black/soldier_black20.png</key>
+            <key type="filename">../png/black/soldier_black21.png</key>
+            <key type="filename">../png/black/soldier_black22.png</key>
+            <key type="filename">../png/black/soldier_black23.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,8,16,16</rect>
+                <key>scale9Paddings</key>
+                <rect>8,8,16,16</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">../png/prova00.png</key>
             <key type="filename">../png/prova01.png</key>
             <key type="filename">../png/prova02.png</key>
             <key type="filename">../png/prova03.png</key>
+            <key type="filename">../png/red/red00.png</key>
+            <key type="filename">../png/red/red01.png</key>
+            <key type="filename">../png/red/red02.png</key>
+            <key type="filename">../png/red/red03.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -222,6 +262,34 @@
             <filename>../png/prova01.png</filename>
             <filename>../png/prova02.png</filename>
             <filename>../png/prova03.png</filename>
+            <filename>../png/red/red00.png</filename>
+            <filename>../png/red/red01.png</filename>
+            <filename>../png/red/red02.png</filename>
+            <filename>../png/red/red03.png</filename>
+            <filename>../png/black/soldier_black00.png</filename>
+            <filename>../png/black/soldier_black01.png</filename>
+            <filename>../png/black/soldier_black02.png</filename>
+            <filename>../png/black/soldier_black04.png</filename>
+            <filename>../png/black/soldier_black05.png</filename>
+            <filename>../png/black/soldier_black06.png</filename>
+            <filename>../png/black/soldier_black07.png</filename>
+            <filename>../png/black/soldier_black03.png</filename>
+            <filename>../png/black/soldier_black08.png</filename>
+            <filename>../png/black/soldier_black09.png</filename>
+            <filename>../png/black/soldier_black10.png</filename>
+            <filename>../png/black/soldier_black11.png</filename>
+            <filename>../png/black/soldier_black12.png</filename>
+            <filename>../png/black/soldier_black13.png</filename>
+            <filename>../png/black/soldier_black14.png</filename>
+            <filename>../png/black/soldier_black15.png</filename>
+            <filename>../png/black/soldier_black16.png</filename>
+            <filename>../png/black/soldier_black17.png</filename>
+            <filename>../png/black/soldier_black18.png</filename>
+            <filename>../png/black/soldier_black19.png</filename>
+            <filename>../png/black/soldier_black20.png</filename>
+            <filename>../png/black/soldier_black21.png</filename>
+            <filename>../png/black/soldier_black22.png</filename>
+            <filename>../png/black/soldier_black23.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

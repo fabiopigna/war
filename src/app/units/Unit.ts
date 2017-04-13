@@ -1,3 +1,4 @@
+import { Soldier } from './soldier/Soldier';
 import { Sprite, Container } from 'pixi.js';
 import { GBounds } from '../shapes/Geometry';
 import { Environment } from '../Environment';
@@ -28,5 +29,6 @@ export abstract class Unit extends GBounds {
 
     public abstract updateLogic(delta: number): void;
     public abstract getContainer(): Container;
-    public abstract takeHit():void;
+    public abstract takeHit(): void;
+    public abstract canBeTargetOf(soldier: Soldier): boolean;
 }

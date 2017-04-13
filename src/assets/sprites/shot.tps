@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.4.0</string>
         <key>fileName</key>
-        <string>C:/Users/fabiopigna/devel/pixijs/PiXi/src/assets/sprites/shot.tps</string>
+        <string>/home/pigna/devel/war/src/assets/sprites/shot.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -199,6 +199,19 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">../png/bullet/gunner00.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>1,0,3,1</rect>
+                <key>scale9Paddings</key>
+                <rect>1,0,3,1</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">../png/shot00.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -216,6 +229,7 @@
         <key>fileList</key>
         <array>
             <filename>../png/shot00.png</filename>
+            <filename>../png/bullet/gunner00.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

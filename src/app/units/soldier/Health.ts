@@ -5,7 +5,7 @@ export class Health {
 
     private healthBar: Container;
     private outerBar: Graphics;
-    private maxLife: number = 10;
+    private maxLife: number = 300;
     private life: number = this.maxLife;
 
     constructor(env: Environment, soldier: Soldier) {
@@ -30,7 +30,7 @@ export class Health {
     public decrease(value: number): void {
         if (this.life > 0) {
             this.life -= value;
-            // this.outerBar.width = (this.life / this.maxLife) * 16;
+            // this.outerBar.width =    (this.life / this.maxLife) * 16;
         }
     }
 

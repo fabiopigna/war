@@ -1,3 +1,4 @@
+import { SoldierConfig } from './units/soldier/SoldierConfig';
 import { NewQuadTree } from './NewQuadTree';
 import { GBounds, GSize } from './shapes/Geometry';
 import { Unit } from './units/Unit';
@@ -9,7 +10,6 @@ import { RectangleShape } from './shapes/RectangleShape';
 import { autoDetectRenderer } from 'pixi.js';
 import { SystemRenderer, Container, Graphics, Application, Point, particles, Sprite, Texture, extras, loaders } from 'pixi.js';
 import { Component, ElementRef, OnInit } from '@angular/core';
-import * as Quadtree from 'quadtree-lib';
 
 
 @Component({
@@ -28,11 +28,13 @@ export class AppComponent implements OnInit {
   public stage: Container;
 
   public redArmy: Army;
+  public blackArmy: Army;
   public map: Map<string, Unit>;
   public env: Environment;
   public textureLibrary: TextureLibrary;
   constructor(private elementRef: ElementRef) {
     this.textureLibrary = new TextureLibrary();
+
   }
 
 
@@ -42,16 +44,26 @@ export class AppComponent implements OnInit {
 
 
     this.stage = this.app.stage;
-    this.app.renderer.backgroundColor = 0xaaaaaa;
+    this.app.renderer.backgroundColor = 0x666666;
 
     this.elementRef.nativeElement.appendChild(this.app.view);
     this.textureLibrary.load().onComplete.add(() => {
       this.env = new Environment(this.map, this.textureLibrary);
       this.env.worldBounds = GBounds.from(0, 0, this.width, this.height);
       this.env.stage = this.stage;
-      // this.env.quadTree = new Quadtree<Unit>({ width: this.width, height: this.height });
-      this.redArmy = new Army(this.env);
-      this.redArmy.createSoldiers(100);
+      let blackConfig: SoldierConfig = new SoldierConfig();
+      blackConfig.textures = this.textureLibrary.soldierTexture;
+      blackConfig.armyKey = 'black';
+
+      this.blackArmy = new Army(this.env, blackConfig);
+      this.blackArmy.createSoldiers(10);
+
+      let redConfig: SoldierConfig = new SoldierConfig();
+      redConfig.textures = this.textureLibrary.soldierTexture;
+      redConfig.armyKey = 'red';
+
+      this.redArmy = new Army(this.env, redConfig);
+      this.redArmy.createSoldiers(10);
       console.log(this.redArmy.soldiers)
       this.app.ticker.add((delta) => this.gameLoop(delta));
     });
