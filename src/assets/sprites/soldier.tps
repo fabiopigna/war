@@ -199,30 +199,54 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../png/black/soldier_black00.png</key>
-            <key type="filename">../png/black/soldier_black01.png</key>
-            <key type="filename">../png/black/soldier_black02.png</key>
-            <key type="filename">../png/black/soldier_black03.png</key>
-            <key type="filename">../png/black/soldier_black04.png</key>
-            <key type="filename">../png/black/soldier_black05.png</key>
-            <key type="filename">../png/black/soldier_black06.png</key>
-            <key type="filename">../png/black/soldier_black07.png</key>
-            <key type="filename">../png/black/soldier_black08.png</key>
-            <key type="filename">../png/black/soldier_black09.png</key>
-            <key type="filename">../png/black/soldier_black10.png</key>
-            <key type="filename">../png/black/soldier_black11.png</key>
-            <key type="filename">../png/black/soldier_black12.png</key>
-            <key type="filename">../png/black/soldier_black13.png</key>
-            <key type="filename">../png/black/soldier_black14.png</key>
-            <key type="filename">../png/black/soldier_black15.png</key>
-            <key type="filename">../png/black/soldier_black16.png</key>
-            <key type="filename">../png/black/soldier_black17.png</key>
-            <key type="filename">../png/black/soldier_black18.png</key>
-            <key type="filename">../png/black/soldier_black19.png</key>
-            <key type="filename">../png/black/soldier_black20.png</key>
-            <key type="filename">../png/black/soldier_black21.png</key>
-            <key type="filename">../png/black/soldier_black22.png</key>
-            <key type="filename">../png/black/soldier_black23.png</key>
+            <key type="filename">../png/black/soldier_black_000.png</key>
+            <key type="filename">../png/black/soldier_black_001.png</key>
+            <key type="filename">../png/black/soldier_black_002.png</key>
+            <key type="filename">../png/black/soldier_black_003.png</key>
+            <key type="filename">../png/black/soldier_black_004.png</key>
+            <key type="filename">../png/black/soldier_black_005.png</key>
+            <key type="filename">../png/black/soldier_black_006.png</key>
+            <key type="filename">../png/black/soldier_black_007.png</key>
+            <key type="filename">../png/black/soldier_black_008.png</key>
+            <key type="filename">../png/black/soldier_black_009.png</key>
+            <key type="filename">../png/black/soldier_black_010.png</key>
+            <key type="filename">../png/black/soldier_black_011.png</key>
+            <key type="filename">../png/black/soldier_black_012.png</key>
+            <key type="filename">../png/black/soldier_black_013.png</key>
+            <key type="filename">../png/black/soldier_black_014.png</key>
+            <key type="filename">../png/black/soldier_black_015.png</key>
+            <key type="filename">../png/black/soldier_black_016.png</key>
+            <key type="filename">../png/black/soldier_black_017.png</key>
+            <key type="filename">../png/black/soldier_black_018.png</key>
+            <key type="filename">../png/black/soldier_black_019.png</key>
+            <key type="filename">../png/black/soldier_black_020.png</key>
+            <key type="filename">../png/black/soldier_black_021.png</key>
+            <key type="filename">../png/black/soldier_black_022.png</key>
+            <key type="filename">../png/black/soldier_black_023.png</key>
+            <key type="filename">../png/red/soldier_red_000.png</key>
+            <key type="filename">../png/red/soldier_red_001.png</key>
+            <key type="filename">../png/red/soldier_red_002.png</key>
+            <key type="filename">../png/red/soldier_red_003.png</key>
+            <key type="filename">../png/red/soldier_red_004.png</key>
+            <key type="filename">../png/red/soldier_red_005.png</key>
+            <key type="filename">../png/red/soldier_red_006.png</key>
+            <key type="filename">../png/red/soldier_red_007.png</key>
+            <key type="filename">../png/red/soldier_red_008.png</key>
+            <key type="filename">../png/red/soldier_red_009.png</key>
+            <key type="filename">../png/red/soldier_red_010.png</key>
+            <key type="filename">../png/red/soldier_red_011.png</key>
+            <key type="filename">../png/red/soldier_red_012.png</key>
+            <key type="filename">../png/red/soldier_red_013.png</key>
+            <key type="filename">../png/red/soldier_red_014.png</key>
+            <key type="filename">../png/red/soldier_red_015.png</key>
+            <key type="filename">../png/red/soldier_red_016.png</key>
+            <key type="filename">../png/red/soldier_red_017.png</key>
+            <key type="filename">../png/red/soldier_red_018.png</key>
+            <key type="filename">../png/red/soldier_red_019.png</key>
+            <key type="filename">../png/red/soldier_red_020.png</key>
+            <key type="filename">../png/red/soldier_red_021.png</key>
+            <key type="filename">../png/red/soldier_red_022.png</key>
+            <key type="filename">../png/red/soldier_red_023.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -232,64 +256,14 @@
                 <rect>8,8,16,16</rect>
                 <key>scale9Paddings</key>
                 <rect>8,8,16,16</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../png/prova00.png</key>
-            <key type="filename">../png/prova01.png</key>
-            <key type="filename">../png/prova02.png</key>
-            <key type="filename">../png/prova03.png</key>
-            <key type="filename">../png/red/red00.png</key>
-            <key type="filename">../png/red/red01.png</key>
-            <key type="filename">../png/red/red02.png</key>
-            <key type="filename">../png/red/red03.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>4,4,8,8</rect>
-                <key>scale9Paddings</key>
-                <rect>4,4,8,8</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>../png/prova00.png</filename>
-            <filename>../png/prova01.png</filename>
-            <filename>../png/prova02.png</filename>
-            <filename>../png/prova03.png</filename>
-            <filename>../png/red/red00.png</filename>
-            <filename>../png/red/red01.png</filename>
-            <filename>../png/red/red02.png</filename>
-            <filename>../png/red/red03.png</filename>
-            <filename>../png/black/soldier_black00.png</filename>
-            <filename>../png/black/soldier_black01.png</filename>
-            <filename>../png/black/soldier_black02.png</filename>
-            <filename>../png/black/soldier_black04.png</filename>
-            <filename>../png/black/soldier_black05.png</filename>
-            <filename>../png/black/soldier_black06.png</filename>
-            <filename>../png/black/soldier_black07.png</filename>
-            <filename>../png/black/soldier_black03.png</filename>
-            <filename>../png/black/soldier_black08.png</filename>
-            <filename>../png/black/soldier_black09.png</filename>
-            <filename>../png/black/soldier_black10.png</filename>
-            <filename>../png/black/soldier_black11.png</filename>
-            <filename>../png/black/soldier_black12.png</filename>
-            <filename>../png/black/soldier_black13.png</filename>
-            <filename>../png/black/soldier_black14.png</filename>
-            <filename>../png/black/soldier_black15.png</filename>
-            <filename>../png/black/soldier_black16.png</filename>
-            <filename>../png/black/soldier_black17.png</filename>
-            <filename>../png/black/soldier_black18.png</filename>
-            <filename>../png/black/soldier_black19.png</filename>
-            <filename>../png/black/soldier_black20.png</filename>
-            <filename>../png/black/soldier_black21.png</filename>
-            <filename>../png/black/soldier_black22.png</filename>
-            <filename>../png/black/soldier_black23.png</filename>
+            <filename>../png/red</filename>
+            <filename>../png/black</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -4,12 +4,11 @@ import { GBounds, GSize } from './shapes/Geometry';
 import { Unit } from './units/Unit';
 import { TextureLibrary } from './graphics/TextureLibrary';
 import { Army } from './units/army/Army';
-import { Environment } from './Environment';
 import { RectangleShape } from './shapes/RectangleShape';
-
 import { autoDetectRenderer } from 'pixi.js';
 import { SystemRenderer, Container, Graphics, Application, Point, particles, Sprite, Texture, extras, loaders } from 'pixi.js';
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { Environment } from "app/environment/Environment";
 
 
 @Component({
@@ -44,7 +43,7 @@ export class AppComponent implements OnInit {
 
 
     this.stage = this.app.stage;
-    this.app.renderer.backgroundColor = 0x666666;
+    this.app.renderer.backgroundColor = 0x447711;
 
     this.elementRef.nativeElement.appendChild(this.app.view);
     this.textureLibrary.load().onComplete.add(() => {
@@ -54,16 +53,17 @@ export class AppComponent implements OnInit {
       let blackConfig: SoldierConfig = new SoldierConfig();
       blackConfig.textures = this.textureLibrary.soldierTexture;
       blackConfig.armyKey = 'black';
+      blackConfig.isHuman = true;
 
       this.blackArmy = new Army(this.env, blackConfig);
-      this.blackArmy.createSoldiers(10);
+      this.blackArmy.createSoldiers(10, GBounds.from(0, 0, this.env.worldBounds.width * 0.5, this.env.worldBounds.height));
 
       let redConfig: SoldierConfig = new SoldierConfig();
-      redConfig.textures = this.textureLibrary.soldierTexture;
+      redConfig.textures = this.textureLibrary.soldierRedTexture;
       redConfig.armyKey = 'red';
 
       this.redArmy = new Army(this.env, redConfig);
-      this.redArmy.createSoldiers(10);
+      this.redArmy.createSoldiers(10, GBounds.from(this.env.worldBounds.width * 0.5, 0, this.env.worldBounds.width * 0.5, this.env.worldBounds.height));
       console.log(this.redArmy.soldiers)
       this.app.ticker.add((delta) => this.gameLoop(delta));
     });

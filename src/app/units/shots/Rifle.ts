@@ -6,7 +6,7 @@ import { Unit } from '../Unit';
 import { Environment } from '../../Environment';
 export class Rifle {
 
-    public shotArea = 500;
+    public shotArea = 200;
     public WEAPON_RECOIL_TIME = 200;
     public WEAPON_RELOAD_TIME = 5000;
     public WEAPON_AMMO = 5;
@@ -18,7 +18,7 @@ export class Rifle {
     constructor(private env: Environment, private soldier: Soldier) {
         this.lastShotTime = performance.now();
         this.weaponConfig = new WeaponConfig();
-        this.weaponConfig.bulletSpeed = 5;
+        this.weaponConfig.bulletSpeed = 10;
         this.weaponConfig.bulletTexture = this.env.textureLibrary.shotTexture.gunner;
     }
 
@@ -48,10 +48,7 @@ export class Rifle {
 
 
     public canFire(delta: number): boolean {
-        if ((performance.now() - this.lastShotTime) > this.WEAPON_RECOIL_TIME) {
-            return true;
-        }
-        return false;
+        return !this.needToReload() && ((performance.now() - this.lastShotTime) > this.WEAPON_RECOIL_TIME);
     }
 
     public needToReload(): boolean {

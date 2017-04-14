@@ -9,7 +9,7 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="10"
+   width="20"
    height="1"
    id="svg4239"
    version="1.1"
@@ -29,15 +29,16 @@
      inkscape:pageshadow="2"
      inkscape:zoom="64"
      inkscape:cx="10.01766"
-     inkscape:cy="-0.20130384"
+     inkscape:cy="-2.7013038"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     showgrid="true"
+     showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1004"
      inkscape:window-x="0"
      inkscape:window-y="24"
-     inkscape:window-maximized="1">
+     inkscape:window-maximized="1"
+     showguides="false">
     <inkscape:grid
        type="xygrid"
        id="grid4247"
@@ -65,8 +66,9 @@
      transform="translate(0,-1051.3622)">
     <path
        style="fill:none;stroke:#ca9625;stroke-width:1.00491893px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m -0.01264552,1051.8637 10.01736552,0 0,0"
+       d="m -0.01264552,1051.8637 10.01736552,0 10.02653,-0"
        id="path4251"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
   </g>
 </svg>

@@ -19,13 +19,12 @@ export class TextureLibrary {
         this.soldierTexture = [];
         this.soldierRedTexture = [];
         for (let i = 0; i < 24; i++) {
-            const val: string = i < 10 ? '0' + i : '' + i;
-            // this.soldierTexture.push(resources['soldier'].textures['prova' + val + '.png']);
-            this.soldierTexture.push(resources['soldier'].textures['soldier_black'+val+'.png']);
+            const val: string = i < 10 ? '00' + i : i < 100 ? '0' + i : '' + i;
+            this.soldierTexture.push(resources['soldier'].textures['soldier_black_' + val + '.png']);
         }
-        for (let i = 0; i < 4; i++) {
-            const val: string = i < 10 ? '0' + i : '' + i;
-            this.soldierRedTexture.push(resources['soldier'].textures['red' + val + '.png']);
+        for (let i = 0; i < 24; i++) {
+            const val: string = i < 10 ? '00' + i : i < 100 ? '0' + i : '' + i;
+            this.soldierRedTexture.push(resources['soldier'].textures['soldier_red_' + val + '.png']);
         }
 
         this.shotTexture = {
