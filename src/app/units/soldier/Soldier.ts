@@ -1,13 +1,16 @@
+import { GPoint } from '../../shapes/GPoint';
+import { HumanMoveLogic } from './movement/HumanMoveLogic';
+import { RandomMoveLogic } from './movement/RandomMoveLogic';
+import { IMoveLogic } from './movement/IMoveLogic';
+import { IInteractiveUnit } from '../IInteractiveUnit';
+import { Environment } from '../../environment/Environment';
 import { Army } from '../army/Army';
 import { SoldierConfig } from './SoldierConfig';
-import { Environment } from '../../Environment';
-import { GPoint } from '../../shapes/Geometry';
 import { Rifle } from '../shots/Rifle';
 import { Unit } from '../Unit';
 import { Health } from './Health';
-import { Container, extras, interaction } from 'pixi.js';
-export class Soldier extends Unit {
-
+import { Container, extras, interaction, Point } from 'pixi.js';
+export class Soldier extends Unit implements IInteractiveUnit {
 
     public config: SoldierConfig;
     public container: Container;
@@ -15,7 +18,9 @@ export class Soldier extends Unit {
     private weapon: Rifle;
     private direction: GPoint;
     private health: Health;
-    private angle;
+    private angle: number;
+    private moveTarget: GPoint;
+    private moveLogic: IMoveLogic;
 
     constructor(env: Environment, config: SoldierConfig) {
         super(env, 'soldier');
@@ -33,6 +38,11 @@ export class Soldier extends Unit {
         this.health = new Health(env, this);
         this.container.addChild(this.sprite);
         this.angle = 0.5;
+        if (!this.config.isHuman) {
+            this.moveLogic = new RandomMoveLogic(this.env, this, config);
+        } else {
+            this.moveLogic = new HumanMoveLogic(this.env, this, config);
+        }
     }
 
     public setPosition(x: number, y: number): void {
@@ -42,7 +52,7 @@ export class Soldier extends Unit {
     }
 
     public start(): void {
-        this.env.addUnit(this);
+        this.env.world.addUnit(this);
     }
 
 
@@ -60,15 +70,8 @@ export class Soldier extends Unit {
             }
             return;
         }
-        if (!this.config.isHuman) {
-            while (!this.direction || !this.moveByCopy(this.direction).isInside(this.env.worldBounds)) {
-                this.direction = new GPoint(1 - 2 * Math.random(), 1 - 2 * Math.random());
-            }
-            this.x += 0.5*this.direction.x;
-            this.y += 0.5*this.direction.y;
-            this.container.x = this.x;
-            this.container.y = this.y;
-        }
+        this.moveLogic.updateLogic(delta);
+        this.container.position.set(this.x, this.y);
 
         let target: Unit = this.weapon.getTargets()
             .filter(target => target.canBeTargetOf(this))
@@ -112,11 +115,15 @@ export class Soldier extends Unit {
     }
 
     public destroy(): void {
-        this.env.removeUnit(this);
+        this.env.world.removeUnit(this);
     }
 
     public onClick(event: interaction.InteractionEvent): void {
         this.env.selection.setSelected(this);
+        event.stopPropagation();
     }
 
+    public handleClickOnWorld(event: interaction.InteractionEvent): void {
+        this.moveLogic.setTarget(GPoint.from(event.data.global));
+    }
 }

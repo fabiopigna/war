@@ -1,5 +1,5 @@
+import { Environment } from '../../environment/Environment';
 import { Soldier } from './Soldier';
-import { Environment } from '../../Environment';
 import { Container, Graphics } from 'pixi.js';
 export class Health {
 
@@ -11,13 +11,6 @@ export class Health {
     constructor(env: Environment, soldier: Soldier) {
         this.healthBar = new Container();
         this.healthBar.position.set(0, -2);
-
-            // let innerBar = new Graphics();
-            // innerBar.beginFill(0x000000);
-            // innerBar.drawRect(8, 0, 16, 2);
-            // innerBar.endFill();
-            // this.healthBar.addChild(innerBar);
-
         this.outerBar = new Graphics();
         this.outerBar.beginFill(0x993300);
         this.outerBar.drawRect(8, 0, 16, 2);
@@ -30,7 +23,7 @@ export class Health {
     public decrease(value: number): void {
         if (this.life > 0) {
             this.life -= value;
-            this.outerBar.width =    (this.life / this.maxLife) * 16;
+            this.outerBar.width = (this.life / this.maxLife) * 16;
         }
     }
 

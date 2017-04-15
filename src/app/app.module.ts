@@ -23,6 +23,7 @@ declare global {
   interface Array<T> {
     first(): T;
     takeFirst<R>(callback: (t: T) => R): R;
+    isEmpty(): boolean;
   }
 }
 
@@ -38,5 +39,12 @@ if (!Array.prototype.takeFirst) {
     if (this.length > 0) {
       return callback(this.first());
     }
+  }
+}
+
+
+if (!Array.prototype.isEmpty) {
+  Array.prototype.isEmpty = function <T>(): boolean {
+    return this.length === 0;
   }
 }

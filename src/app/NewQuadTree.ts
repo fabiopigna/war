@@ -1,14 +1,15 @@
-import { GBounds, IBounds } from './shapes/Geometry';
-export class NewQuadTree<T extends IBounds> {
+import { GBounds } from './shapes/GBounds';
+
+export class NewQuadTree<T extends GBounds> {
 
     public maxObjects = 10;
-    public bounds: IBounds;
+    public bounds: GBounds;
     public objects: T[] = [];
     public nodes: NewQuadTree<T>[] = [];
     public level = 0;
     public maxLevels = 5;
 
-    constructor(boundBox: IBounds, lvl: number) {
+    constructor(boundBox: GBounds, lvl: number) {
         this.bounds = boundBox || GBounds.from(0, 0, 0, 0)
         this.level = lvl || 0;
     }
@@ -19,15 +20,15 @@ export class NewQuadTree<T extends IBounds> {
         this.nodes = [];
     }
 
-    public checkCollision(b0: IBounds, b1: IBounds): boolean {
+    public checkCollision(b0: GBounds, b1: GBounds): boolean {
         return b1.x < b0.x + b0.width &&
             b1.x + b1.width > b0.x &&
             b1.y < b0.y + b0.height &&
             b1.y + b1.height > b0.y;
     }
 
-    public colliding(bounds: IBounds): T[] {
-        return this.getAllObjects([]).filter(object => this.checkCollision(bounds, object));
+    public colliding(bounds: GBounds, source: T): T[] {
+        return this.getAllObjects([]).filter(object => object !== source && this.checkCollision(bounds, object));
     }
 
     public detectCollision(): T[] {

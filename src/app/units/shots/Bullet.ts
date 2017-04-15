@@ -1,7 +1,8 @@
+import { GBounds } from '../../shapes/GBounds';
+import { GPoint } from '../../shapes/GPoint';
+import { Environment } from '../../environment/Environment';
 import { WeaponConfig } from './WeaponConfig';
 import { Soldier } from '../soldier/Soldier';
-import { GBounds, GPoint } from '../../shapes/Geometry';
-import { Environment } from '../../Environment';
 import { Unit } from '../Unit';
 import { extras, Sprite, Container } from 'pixi.js';
 export class Bullet extends Unit {
@@ -37,7 +38,7 @@ export class Bullet extends Unit {
     }
 
     public start(): void {
-        this.env.addUnit(this);
+        this.env.world.addUnit(this);
         this.timeStart = performance.now();
     }
 
@@ -51,7 +52,6 @@ export class Bullet extends Unit {
             this.y += this.velocity.y;
             this.sprite.x = this.x;
             this.sprite.y = this.y;
-
         } else {
             this.destroy();
         }
@@ -59,12 +59,12 @@ export class Bullet extends Unit {
 
     public checkCollision(): Unit[] {
         const bulletTrace: GBounds = GBounds.fromPoints(this.topLeft, this.topLeft.plus(this.velocity));
-        return this.env.quadTree.colliding(bulletTrace.keepInside(this.env.worldBounds))
-            .filter(target => target.id !== this.id && target.id !== this.shooter.id);
+        return this.env.quadTree.colliding(bulletTrace.keepInside(this.env.world), this)
+            .filter(target => target.id !== this.shooter.id);
     }
 
     public insideWorldBounds(): boolean {
-        return this.moveByCopy(this.velocity).isInside(this.env.worldBounds);
+        return this.moveByCopy(this.velocity).isInside(this.env.world);
     }
 
     public getContainer(): Container {
@@ -72,7 +72,7 @@ export class Bullet extends Unit {
     }
 
     public destroy(): void {
-        this.env.removeUnit(this);
+        this.env.world.removeUnit(this);
     }
 
     public takeHit(): void {

@@ -1,9 +1,10 @@
+import { GBounds } from '../../shapes/GBounds';
+import { GPoint } from '../../shapes/GPoint';
+import { Environment } from '../../environment/Environment';
 import { WeaponConfig } from './WeaponConfig';
 import { Soldier } from '../soldier/Soldier';
 import { Bullet } from './Bullet';
-import { GBounds, GPoint } from '../../shapes/Geometry';
 import { Unit } from '../Unit';
-import { Environment } from '../../Environment';
 export class Rifle {
 
     public shotArea = 200;
@@ -38,14 +39,12 @@ export class Rifle {
     }
 
     public getTargets(): Unit[] {
-        return this.env.quadTree.colliding(this.getShotArea().keepInside(this.env.worldBounds))
-
+        return this.env.quadTree.colliding(this.getShotArea().keepInside(this.env.world), this.soldier)
     }
 
     public getShotArea(): GBounds {
         return GBounds.fromCenter(this.soldier.center, this.shotArea);
     }
-
 
     public canFire(delta: number): boolean {
         return !this.needToReload() && ((performance.now() - this.lastShotTime) > this.WEAPON_RECOIL_TIME);
