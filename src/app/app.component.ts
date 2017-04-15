@@ -55,14 +55,14 @@ export class AppComponent implements OnInit {
       blackConfig.isHuman = true;
 
       this.blackArmy = new Army(this.env, blackConfig);
-      this.blackArmy.createSoldiers(10, GBounds.from(0, 0, this.env.world.width * 0.5, this.env.world.height));
+      this.blackArmy.createSoldiers(10, GBounds.from(0, 0, this.env.world.getBounds().width * 0.5, this.env.world.getBounds().height));
 
       let redConfig: SoldierConfig = new SoldierConfig();
       redConfig.textures = this.textureLibrary.soldierRedTexture;
       redConfig.armyKey = 'red';
 
       this.redArmy = new Army(this.env, redConfig);
-      this.redArmy.createSoldiers(10, GBounds.from(this.env.world.width * 0.5, 0, this.env.world.width * 0.5, this.env.world.height));
+      this.redArmy.createSoldiers(10, GBounds.from(this.env.world.getBounds().width * 0.5, 0, this.env.world.getBounds().width * 0.5, this.env.world.getBounds().height));
       console.log(this.redArmy.soldiers)
       this.app.ticker.add((delta) => this.gameLoop(delta));
     });

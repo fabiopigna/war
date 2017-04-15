@@ -1,3 +1,6 @@
+import { GBounds } from '../../shapes/GBounds';
+import { ITargetableUnit } from '../ITargetableUnit';
+import { IGroundableUnit } from '../IGroundableUnit';
 import { GPoint } from '../../shapes/GPoint';
 import { HumanMoveLogic } from './movement/HumanMoveLogic';
 import { RandomMoveLogic } from './movement/RandomMoveLogic';
@@ -10,29 +13,33 @@ import { Rifle } from '../shots/Rifle';
 import { Unit } from '../Unit';
 import { Health } from './Health';
 import { Container, extras, interaction, Point } from 'pixi.js';
-export class Soldier extends Unit implements IInteractiveUnit {
+export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, ITargetableUnit {
+
+
 
     public config: SoldierConfig;
     public container: Container;
     public sprite: extras.AnimatedSprite;
-    private weapon: Rifle;
-    private direction: GPoint;
+
     private health: Health;
+    private weapon: Rifle;
+
+    private direction: GPoint;
     private angle: number;
     private moveTarget: GPoint;
     private moveLogic: IMoveLogic;
 
     constructor(env: Environment, config: SoldierConfig) {
-        super(env, 'soldier');
+        super(env, config);
         this.config = config;
         this.container = new Container();
         this.sprite = new PIXI.extras.AnimatedSprite(config.textures);
         this.sprite.animationSpeed = 1;
         this.sprite.interactive = true;
         this.sprite.on('pointerdown', (event: interaction.InteractionEvent) => this.onClick(event));
-
-        this.width = 32;
-        this.height = 32;
+        this.bounds = new GBounds();
+        this.bounds.width = 32;
+        this.bounds.height = 32;
         this.weapon = new Rifle(env, this);
 
         this.health = new Health(env, this);
@@ -62,18 +69,19 @@ export class Soldier extends Unit implements IInteractiveUnit {
 
     public updateLogic(delta: number): void {
         if (this.health.isDead()) {
-            this.canBeHit = false;
-            this.container.pivot.set(this.width * 0.5, this.height);
-            this.container.position.set(this.x + this.width * 0.5, this.y + this.height);
+            this.container.pivot.set(this.bounds.width * 0.5, this.bounds.height);
+            this.container.position.set(this.bounds.x + this.bounds.width * 0.5, this.bounds.y + this.bounds.height);
             if (this.container.rotation >= -Math.PI * 0.5) {
                 this.container.rotation -= 0.1;
+            } else {
+                this.destroy();
             }
             return;
         }
         this.moveLogic.updateLogic(delta);
-        this.container.position.set(this.x, this.y);
+        this.container.position.set(this.bounds.x, this.bounds.y);
 
-        let target: Unit = this.weapon.getTargets()
+        let target: ITargetableUnit = this.weapon.getTargets()
             .filter(target => target.canBeTargetOf(this))
             .first();
         if (target) {
@@ -108,6 +116,10 @@ export class Soldier extends Unit implements IInteractiveUnit {
 
     public takeHit() {
         this.health.decrease(1);
+    }
+
+    public canBeHit(): boolean {
+        return !this.health.isDead;
     }
 
     public canBeTargetOf(soldier: Soldier): boolean {

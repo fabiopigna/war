@@ -1,39 +1,40 @@
+import { IUnitConfig } from './IUnitConfig';
+import { IUnit } from './IUnit';
 import { GBounds } from '../shapes/GBounds';
 import { Environment } from '../environment/Environment';
 import { Soldier } from './soldier/Soldier';
 import { Sprite, Container } from 'pixi.js';
 import { getRandomid } from './RandomId';
 import { TextureLibrary } from '../graphics/TextureLibrary';
-export abstract class Unit extends GBounds {
-
+export abstract class Unit implements IUnit {
 
 
     public id: string;
     public type: string;
-    public canBeHit: boolean;
     public env: Environment;
+    public config: IUnitConfig;
 
-    constructor(env: Environment, type: string) {
-        super();
+    protected bounds: GBounds;
+
+    constructor(env: Environment, config:IUnitConfig) {
         this.env = env;
-        this.type = type;
-        this.canBeHit = true;
-        this.id = type + getRandomid();
+        this.config = config;
+        this.type = config.type;
+        this.id = this.type + getRandomid();
         this.env.map.set(this.id, this);
     }
 
 
     public setPosition(x: number, y: number): void {
-        this.x = x;
-        this.y = y;
+        this.bounds.x = x;
+        this.bounds.y = y;
     }
 
     public getBounds(): GBounds {
-        return this;
+        return this.bounds;
     }
 
     public abstract updateLogic(delta: number): void;
     public abstract getContainer(): Container;
-    public abstract takeHit(): void;
-    public abstract canBeTargetOf(soldier: Soldier): boolean;
+
 }

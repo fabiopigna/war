@@ -25,7 +25,7 @@ export class Army {
             do {
                 let point: GPoint = new GPoint(Math.random() * bounds.width, Math.random() * bounds.height);
                 soldier.setPosition(bounds.x + point.x, bounds.y + point.y);
-            } while (!this.env.quadTree.colliding(soldier, soldier).isEmpty());
+            } while (!this.env.groundableQuadTree.colliding(soldier.getBounds(), soldier).isEmpty());
             soldier.start();
             this.soldiers.push(soldier);
         }

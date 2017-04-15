@@ -1,10 +1,12 @@
+import { Environment } from '../../environment/Environment';
 import { GBounds } from '../../shapes/GBounds';
 import { GPoint } from '../../shapes/GPoint';
-import { Environment } from '../../environment/Environment';
-import { WeaponConfig } from './WeaponConfig';
+import { ITargetableUnit } from '../ITargetableUnit';
 import { Soldier } from '../soldier/Soldier';
 import { Unit } from '../Unit';
-import { extras, Sprite, Container } from 'pixi.js';
+import { BulletConfig } from './BulletConfig';
+import { WeaponConfig } from './WeaponConfig';
+import { Container, Sprite } from 'pixi.js';
 export class Bullet extends Unit {
 
 
@@ -17,7 +19,8 @@ export class Bullet extends Unit {
     private weaponConfig: WeaponConfig;
 
     constructor(env: Environment, shooter: Soldier, weaponConfig: WeaponConfig) {
-        super(env, 'bullet');
+        super(env, new BulletConfig());
+        this.bounds = new GBounds();
         this.weaponConfig = weaponConfig;
         this.shooter = shooter;
         this.sprite = new Sprite(weaponConfig.bulletTexture);
@@ -43,28 +46,28 @@ export class Bullet extends Unit {
     }
 
     public updateLogic(delta: number): void {
-        const collisions: Unit[] = this.checkCollision();
+        const collisions: ITargetableUnit[] = this.checkCollision();
         if (collisions.length > 0) {
             collisions[0].takeHit();
             this.destroy();
         } else if (this.insideWorldBounds()) {
-            this.x += this.velocity.x;
-            this.y += this.velocity.y;
-            this.sprite.x = this.x;
-            this.sprite.y = this.y;
+            this.bounds.x += this.velocity.x;
+            this.bounds.y += this.velocity.y;
+            this.sprite.x = this.bounds.x;
+            this.sprite.y = this.bounds.y;
         } else {
             this.destroy();
         }
     }
 
-    public checkCollision(): Unit[] {
-        const bulletTrace: GBounds = GBounds.fromPoints(this.topLeft, this.topLeft.plus(this.velocity));
-        return this.env.quadTree.colliding(bulletTrace.keepInside(this.env.world), this)
+    public checkCollision(): ITargetableUnit[] {
+        const bulletTrace: GBounds = GBounds.fromPoints(this.bounds.topLeft, this.bounds.topLeft.plus(this.velocity));
+        return this.env.targetableQuadTree.colliding(bulletTrace.keepInside(this.env.world.getBounds()), this)
             .filter(target => target.id !== this.shooter.id);
     }
 
     public insideWorldBounds(): boolean {
-        return this.moveByCopy(this.velocity).isInside(this.env.world);
+        return this.bounds.moveByCopy(this.velocity).isInside(this.env.world.getBounds());
     }
 
     public getContainer(): Container {

@@ -1,4 +1,3 @@
-import { Unit } from '../units/Unit';
 import { Container, interaction } from 'pixi.js';
 import { IInteractiveUnit } from "app/units/IInteractiveUnit";
 export class UnitSelection {

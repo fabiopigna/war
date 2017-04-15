@@ -1,3 +1,4 @@
+import { ITargetableUnit } from '../ITargetableUnit';
 import { GBounds } from '../../shapes/GBounds';
 import { GPoint } from '../../shapes/GPoint';
 import { Environment } from '../../environment/Environment';
@@ -25,25 +26,25 @@ export class Rifle {
 
     public fireShot(rotation: number): void {
         const bullet = new Bullet(this.env, this.soldier, this.weaponConfig);
-        bullet.setPosition(this.soldier.center.x, this.soldier.center.y);
+        bullet.setPosition(this.soldier.getBounds().center.x, this.soldier.getBounds().center.y);
         bullet.setRotation(rotation);
         bullet.start();
         this.currentAmmo--;
         this.lastShotTime = performance.now();
     }
 
-    public getRotationToTarget(target: Unit): number {
-        const targetCenter: GPoint = target.center;
-        const rotation = Math.atan2(targetCenter.y - this.soldier.center.y, targetCenter.x - this.soldier.center.x);
+    public getRotationToTarget(target: ITargetableUnit): number {
+        const targetCenter: GPoint = target.getBounds().center;
+        const rotation = Math.atan2(targetCenter.y - this.soldier.getBounds().center.y, targetCenter.x - this.soldier.getBounds().x);
         return rotation;
     }
 
-    public getTargets(): Unit[] {
-        return this.env.quadTree.colliding(this.getShotArea().keepInside(this.env.world), this.soldier)
+    public getTargets(): ITargetableUnit[] {
+        return this.env.targetableQuadTree.colliding(this.getShotArea().keepInside(this.env.world.getBounds()), this.soldier)
     }
 
     public getShotArea(): GBounds {
-        return GBounds.fromCenter(this.soldier.center, this.shotArea);
+        return GBounds.fromCenter(this.soldier.getBounds().center, this.shotArea);
     }
 
     public canFire(delta: number): boolean {

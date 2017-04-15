@@ -1,6 +1,7 @@
+import { IUnit } from './units/IUnit';
 import { GBounds } from './shapes/GBounds';
 
-export class NewQuadTree<T extends GBounds> {
+export class NewQuadTree<T extends IUnit> {
 
     public maxObjects = 10;
     public bounds: GBounds;
@@ -28,14 +29,14 @@ export class NewQuadTree<T extends GBounds> {
     }
 
     public colliding(bounds: GBounds, source: T): T[] {
-        return this.getAllObjects([]).filter(object => object !== source && this.checkCollision(bounds, object));
+        return this.getAllObjects([]).filter(object => object !== source && this.checkCollision(bounds, object.getBounds()));
     }
 
     public detectCollision(): T[] {
         let collision: T[] = [];
         this.getAllObjects([]).forEach(first => {
             this.findObjects([], first).forEach(second => {
-                if (this.checkCollision(first, second)) {
+                if (this.checkCollision(first.getBounds(), second.getBounds())) {
                     collision.push(first);
                     collision.push(second)
                 }
@@ -131,15 +132,15 @@ export class NewQuadTree<T extends GBounds> {
         let index = -1;
         let verticalMidpoint: number = this.bounds.x + this.bounds.width / 2;
         let horizontalMidpoint: number = this.bounds.y + this.bounds.height / 2;
-
+        let objBounds: GBounds = obj.getBounds();
         // Object can fit completely within the top quadrant
-        let topQuadrant: boolean = (obj.y < horizontalMidpoint && obj.y + obj.height < horizontalMidpoint);
+        let topQuadrant: boolean = (objBounds.y < horizontalMidpoint && objBounds.y + objBounds.height < horizontalMidpoint);
         // Object can fit completely within the bottom quandrant
-        let bottomQuadrant: boolean = (obj.y > horizontalMidpoint);
+        let bottomQuadrant: boolean = (objBounds.y > horizontalMidpoint);
 
         // Object can fit completely within the left quadrants
-        if (obj.x < verticalMidpoint &&
-            obj.x + obj.width < verticalMidpoint) {
+        if (objBounds.x < verticalMidpoint &&
+            objBounds.x + objBounds.width < verticalMidpoint) {
             if (topQuadrant) {
                 index = 1;
             }
@@ -148,7 +149,7 @@ export class NewQuadTree<T extends GBounds> {
             }
         }
         // Object can fix completely within the right quandrants
-        else if (obj.x > verticalMidpoint) {
+        else if (objBounds.x > verticalMidpoint) {
             if (topQuadrant) {
                 index = 0;
             }

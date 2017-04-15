@@ -1,3 +1,4 @@
+import { WallConfig } from './WallConfig';
 import { GBounds } from '../../shapes/GBounds';
 import { Environment } from '../../environment/Environment';
 import { Soldier } from '../soldier/Soldier';
@@ -8,11 +9,8 @@ export class Wall extends Unit {
     private wallContainer: Container;
 
     constructor(env: Environment, bounds: GBounds) {
-        super(env, 'wall');
-        this.x = bounds.x;
-        this.y = bounds.y;
-        this.width = bounds.width;
-        this.height = bounds.height;
+        super(env, new WallConfig());
+        this.bounds = bounds;
     }
 
     public updateLogic(delta: number): void {
@@ -22,10 +20,4 @@ export class Wall extends Unit {
         return this.wallContainer;
     }
 
-    public takeHit(): void {
-    }
-
-    public canBeTargetOf(soldier: Soldier): boolean {
-        return false;
-    }
 }

@@ -1,3 +1,4 @@
+import { IUnit } from '../../IUnit';
 import { GPoint } from '../../../shapes/GPoint';
 import { GBounds } from '../../../shapes/GBounds';
 import { MoveConfig } from './MoveConfig';
@@ -9,14 +10,14 @@ import { IMoveLogic } from './IMoveLogic';
 export class HumanMoveLogic implements IMoveLogic {
 
 
-    private unit: Unit;
+    private unit: IUnit;
     private env: Environment;
     private angle: GAngle;
     private speed: GVector;
     private target: GPoint;
     private config: MoveConfig;
 
-    constructor(env: Environment, unit: Unit, moveConfig: MoveConfig) {
+    constructor(env: Environment, unit: IUnit, moveConfig: MoveConfig) {
         this.env = env;
         this.unit = unit;
         this.config = moveConfig;
@@ -28,7 +29,7 @@ export class HumanMoveLogic implements IMoveLogic {
         if (this.isArrived()) return;
         let velocity: GVector = this.angle.mul(this.speed);
         let maybeBounds: GBounds = this.unit.getBounds().copy().sum(velocity);
-        let collision: Unit[] = this.env.quadTree.colliding(maybeBounds, this.unit);
+        let collision: IUnit[] = this.env.groundableQuadTree.colliding(maybeBounds, this.unit);
         if (collision.isEmpty()) {
             this.unit.getBounds().sum(velocity);
         }
@@ -36,11 +37,11 @@ export class HumanMoveLogic implements IMoveLogic {
 
     public setTarget(point: GPoint): void {
         this.target = point;
-        this.angle = GAngle.from(this.unit.bottomCenter, this.target);
+        this.angle = GAngle.from(this.unit.getBounds().bottomCenter, this.target);
     }
 
     private isArrived(): boolean {
-        return !this.target || this.target.isClose(this.unit.bottomCenter, this.config.tollerance)
+        return !this.target || this.target.isClose(this.unit.getBounds().bottomCenter, this.config.tollerance)
     }
 
 
