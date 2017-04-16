@@ -61,6 +61,7 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
         this.bounds.sum(vector);
         this.container.x = this.bounds.x;
         this.container.y = this.bounds.y;
+        // this.container.parent.setChildIndex(this.container, this.bounds.y);
     }
 
     public moveTo(point: GPoint): void {
@@ -68,6 +69,7 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
         this.bounds.y = point.y;
         this.container.x = this.bounds.x;
         this.container.y = this.bounds.y;
+
     }
 
     public start(): void {
@@ -92,6 +94,7 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
         }
         this.moveLogic.updateLogic(delta);
         this.container.position.set(this.bounds.x, this.bounds.y);
+        // this.container.parent.setChildIndex(this.container, this.bounds.y);
 
         let target: ITargetableUnit = this.weapon.getTargets()
             .filter(target => target.canBeTargetOf(this))
@@ -116,7 +119,7 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
     }
 
     public getGroundBounds(): GBounds {
-        return GBounds.from(this.bounds.x, this.bounds.bottom - 6, this.bounds.width, 6);
+        return GBounds.from(this.bounds.center.x - 4, this.bounds.bottom - 4, 8, 8);
     }
 
     public getArmy(): string {

@@ -1,3 +1,4 @@
+import { GPoint } from '../../shapes/GPoint';
 import { GVector } from '../../shapes/GVector';
 import { IGroundableUnit } from '../IGroundableUnit';
 import { WallConfig } from './WallConfig';
@@ -29,6 +30,10 @@ export class Wall extends Unit implements IGroundableUnit {
     }
 
     public updateLogic(delta: number): void {
+    }
+
+    public moveTo(point: GPoint): void {
+
     }
 
 }

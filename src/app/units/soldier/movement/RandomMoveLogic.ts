@@ -9,7 +9,6 @@ import { IMoveLogic } from './IMoveLogic';
 import { MoveConfig } from './MoveConfig';
 export class RandomMoveLogic implements IMoveLogic {
 
-
     private unit: IGroundableUnit;
     private env: Environment;
     private angle: GAngle;
@@ -21,7 +20,6 @@ export class RandomMoveLogic implements IMoveLogic {
         this.speed = config.defaultSpeed;
         this.angle = new GAngle(Math.random() * 2 * Math.PI);
     }
-
 
     public updateLogic(delta: number): void {
         let velocity: GVector = this.angle.mul(this.speed);

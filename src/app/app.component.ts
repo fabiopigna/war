@@ -1,3 +1,4 @@
+import { IUnit } from './units/IUnit';
 import { GBounds } from './shapes/GBounds';
 import { WorldConfig } from './units/world/WorldConfig';
 import { EnvironmentConfig } from './environment/EnvironmentConfig';
@@ -26,7 +27,7 @@ export class AppComponent implements OnInit {
 
   public redArmy: Army;
   public blackArmy: Army;
-  public map: Map<string, Unit>;
+  public map: Map<string, IUnit>;
   public env: Environment;
   public textureLibrary: TextureLibrary;
   constructor(private elementRef: ElementRef) {
@@ -40,7 +41,7 @@ export class AppComponent implements OnInit {
     let envConfig: EnvironmentConfig = new EnvironmentConfig();
     let worldConfig: WorldConfig = new WorldConfig();
     this.app = new Application(worldConfig.width, worldConfig.height, { antialias: true });
-    this.map = new Map<string, Unit>();
+    this.map = new Map<string, IUnit>();
 
     this.app.renderer.backgroundColor = 0x447711;
 
@@ -55,14 +56,14 @@ export class AppComponent implements OnInit {
       blackConfig.isHuman = true;
 
       this.blackArmy = new Army(this.env, blackConfig);
-      this.blackArmy.createSoldiers(10, GBounds.from(0, 0, this.env.world.getBounds().width * 0.5, this.env.world.getBounds().height));
+      this.blackArmy.createSoldiers(100, GBounds.from(0, 0, this.env.world.getBounds().width * 0.5, this.env.world.getBounds().height));
 
       let redConfig: SoldierConfig = new SoldierConfig();
       redConfig.textures = this.textureLibrary.soldierRedTexture;
       redConfig.armyKey = 'red';
 
       this.redArmy = new Army(this.env, redConfig);
-      this.redArmy.createSoldiers(10, GBounds.from(this.env.world.getBounds().width * 0.5, 0, this.env.world.getBounds().width * 0.5, this.env.world.getBounds().height));
+      this.redArmy.createSoldiers(100, GBounds.from(this.env.world.getBounds().width * 0.5, 0, this.env.world.getBounds().width * 0.5, this.env.world.getBounds().height));
       console.log(this.redArmy.soldiers)
       this.app.ticker.add((delta) => this.gameLoop(delta));
     });
@@ -72,7 +73,7 @@ export class AppComponent implements OnInit {
   public gameLoop(delta: number): void {
     this.fps = this.app.ticker.FPS.toFixed(0);
     this.env.updateQuadTree();
-    this.map.forEach((unit: Unit) => {
+    this.map.forEach((unit: IUnit) => {
       unit.updateLogic(delta);
     })
   }
