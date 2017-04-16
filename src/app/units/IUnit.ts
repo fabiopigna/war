@@ -6,7 +6,6 @@ export interface IUnit {
     type: string;
     config: IUnitConfig;
 
-    getBounds(): GBounds;
     updateLogic(delta: number): void;
     getContainer():Container;
 }

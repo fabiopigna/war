@@ -14,7 +14,6 @@ export class World {
     constructor(env: Environment, config: WorldConfig, container: Container) {
         this.env = env;
         this.bounds = GBounds.from(0,0,config.width, config.height);
-
         this.container = container;
         this.container.position.set(0, 0);
         this.container.width = this.bounds.width;

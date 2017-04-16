@@ -1,3 +1,5 @@
+import { GVector } from '../../shapes/GVector';
+import { GAngle } from '../../shapes/GAngle';
 import { ITargetableUnit } from '../ITargetableUnit';
 import { GBounds } from '../../shapes/GBounds';
 import { GPoint } from '../../shapes/GPoint';
@@ -20,23 +22,23 @@ export class Rifle {
     constructor(private env: Environment, private soldier: Soldier) {
         this.lastShotTime = performance.now();
         this.weaponConfig = new WeaponConfig();
-        this.weaponConfig.bulletSpeed = 10;
+        this.weaponConfig.bulletSpeed = new GVector(10, 10);
         this.weaponConfig.bulletTexture = this.env.textureLibrary.shotTexture.gunner;
     }
 
-    public fireShot(rotation: number): void {
+    public fireShot(angle: GAngle): void {
         const bullet = new Bullet(this.env, this.soldier, this.weaponConfig);
-        bullet.setPosition(this.soldier.getBounds().center.x, this.soldier.getBounds().center.y);
-        bullet.setRotation(rotation);
+        bullet.setPosition(this.soldier.getTargetableBounds().center);
+        bullet.setAngle(angle);
         bullet.start();
         this.currentAmmo--;
         this.lastShotTime = performance.now();
     }
 
-    public getRotationToTarget(target: ITargetableUnit): number {
-        const targetCenter: GPoint = target.getBounds().center;
-        const rotation = Math.atan2(targetCenter.y - this.soldier.getBounds().center.y, targetCenter.x - this.soldier.getBounds().x);
-        return rotation;
+    public getRotationToTarget(target: ITargetableUnit): GAngle {
+        const targetBounds: GBounds = target.getTargetableBounds();
+        const sourceBounds: GBounds = this.soldier.getTargetableBounds();
+        return GAngle.from(sourceBounds.center, targetBounds.center);
     }
 
     public getTargets(): ITargetableUnit[] {
@@ -44,7 +46,7 @@ export class Rifle {
     }
 
     public getShotArea(): GBounds {
-        return GBounds.fromCenter(this.soldier.getBounds().center, this.shotArea);
+        return GBounds.fromCenter(this.soldier.getTargetableBounds().center, this.shotArea);
     }
 
     public canFire(delta: number): boolean {

@@ -1,3 +1,5 @@
+import { GAngle } from '../../shapes/GAngle';
+import { GVector } from '../../shapes/GVector';
 import { GBounds } from '../../shapes/GBounds';
 import { ITargetableUnit } from '../ITargetableUnit';
 import { IGroundableUnit } from '../IGroundableUnit';
@@ -17,6 +19,7 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
 
 
 
+
     public config: SoldierConfig;
     public container: Container;
     public sprite: extras.AnimatedSprite;
@@ -25,7 +28,8 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
     private weapon: Rifle;
 
     private direction: GPoint;
-    private angle: number;
+    private angle: GAngle;
+    private bounds: GBounds;
     private moveTarget: GPoint;
     private moveLogic: IMoveLogic;
 
@@ -44,7 +48,8 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
 
         this.health = new Health(env, this);
         this.container.addChild(this.sprite);
-        this.angle = 0.5;
+        this.angle = new GAngle(0.5);
+        this.sprite.gotoAndStop(this.angle.normalizeTo(this.config.frameNumber));
         if (!this.config.isHuman) {
             this.moveLogic = new RandomMoveLogic(this.env, this, config);
         } else {
@@ -52,10 +57,17 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
         }
     }
 
-    public setPosition(x: number, y: number): void {
-        super.setPosition(x, y);
-        this.container.x = x;
-        this.container.y = y;
+    public moveBy(vector: GVector): void {
+        this.bounds.sum(vector);
+        this.container.x = this.bounds.x;
+        this.container.y = this.bounds.y;
+    }
+
+    public moveTo(point: GPoint): void {
+        this.bounds.x = point.x;
+        this.bounds.y = point.y;
+        this.container.x = this.bounds.x;
+        this.container.y = this.bounds.y;
     }
 
     public start(): void {
@@ -85,29 +97,26 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
             .filter(target => target.canBeTargetOf(this))
             .first();
         if (target) {
-            let targetAngle: number = this.weapon.getRotationToTarget(target);
+            let targetAngle: GAngle = this.weapon.getRotationToTarget(target);
             if (targetAngle) {
-                if (targetAngle - this.angle > Math.PI) {
-                    this.angle += 2 * Math.PI
-                } else if (this.angle - targetAngle > Math.PI) {
-                    this.angle -= 2 * Math.PI
-                }
-                this.angle = targetAngle * this.config.rotationSpeed + this.angle * (1 - this.config.rotationSpeed)
-                let frameIndex: number = (this.normRotation(this.angle) * 24) % 24;
-                this.sprite.gotoAndStop(frameIndex);
+                this.angle = targetAngle.flipFlop(this.angle);
+                this.angle.rotateTo(targetAngle, this.config.rotationSpeed);
+                this.sprite.gotoAndStop(this.angle.normalizeTo(this.config.frameNumber));
             }
-
             if (this.weapon.needToReload()) {
                 this.weapon.reload();
-            } else if (this.weapon.canFire(delta)) {
+            } else if (this.weapon.canFire(delta) && this.angle.isClose(targetAngle, this.config.rotationTollerance)) {
                 this.weapon.fireShot(this.angle);
             }
         }
-
     }
 
-    public normRotation(rotation: number): number {
-        return (rotation + Math.PI) / (2 * Math.PI);
+    public getTargetableBounds(): GBounds {
+        return this.bounds;
+    }
+
+    public getGroundBounds(): GBounds {
+        return GBounds.from(this.bounds.x, this.bounds.bottom - 6, this.bounds.width, 6);
     }
 
     public getArmy(): string {
@@ -138,4 +147,9 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
     public handleClickOnWorld(event: interaction.InteractionEvent): void {
         this.moveLogic.setTarget(GPoint.from(event.data.global));
     }
+
+
+
+
+
 }

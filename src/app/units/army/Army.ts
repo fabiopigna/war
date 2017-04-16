@@ -1,3 +1,5 @@
+import { GSize } from '../../shapes/GSize';
+import { GVector } from '../../shapes/GVector';
 import { GPoint } from '../../shapes/GPoint';
 import { GBounds } from '../../shapes/GBounds';
 import { Environment } from '../../environment/Environment';
@@ -23,9 +25,9 @@ export class Army {
             this.env.updateQuadTree();
             let soldier: Soldier = new Soldier(this.env, this.config);
             do {
-                let point: GPoint = new GPoint(Math.random() * bounds.width, Math.random() * bounds.height);
-                soldier.setPosition(bounds.x + point.x, bounds.y + point.y);
-            } while (!this.env.groundableQuadTree.colliding(soldier.getBounds(), soldier).isEmpty());
+                let vector: GVector = new GVector(Math.random() * bounds.width, Math.random() * bounds.height);
+                soldier.moveTo(bounds.topLeft.plus(vector));
+            } while (!this.env.groundableQuadTree.colliding(soldier.getGroundBounds(), soldier).isEmpty());
             soldier.start();
             this.soldiers.push(soldier);
         }

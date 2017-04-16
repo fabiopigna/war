@@ -16,8 +16,8 @@ export class GPoint {
         return new GVector(this.x - point.x, this.y - point.y);
     }
 
-    public plus(point: GPoint): GPoint {
-        return new GPoint(this.x + point.x, this.y + point.y);
+    public plus(vector: GVector): GPoint {
+        return new GPoint(this.x + vector.dx, this.y + vector.dy);
     }
 
     public mul(point: GPoint): GPoint {

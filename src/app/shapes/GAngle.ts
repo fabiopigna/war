@@ -2,10 +2,10 @@ import { GPoint } from './GPoint';
 import { GVector } from './GVector';
 export class GAngle {
 
-    private angle: number;
+    private value: number;
 
     constructor(angle: number) {
-        this.angle = angle;
+        this.value = angle;
     }
 
     public static from(p0: GPoint, p1: GPoint): GAngle {
@@ -13,6 +13,31 @@ export class GAngle {
     }
 
     public mul(vector: GVector): GVector {
-        return new GVector(Math.cos(this.angle) * vector.dx, Math.sin(this.angle) * vector.dy);
+        return new GVector(Math.cos(this.value) * vector.dx, Math.sin(this.value) * vector.dy);
+    }
+
+    public flipFlop(angleToAdjust: GAngle): GAngle {
+        if (this.value - angleToAdjust.value > Math.PI) {
+            return new GAngle(angleToAdjust.value + 2 * Math.PI);
+        } else if (angleToAdjust.value - this.value > Math.PI) {
+            return new GAngle(angleToAdjust.value - 2 * Math.PI);
+        }
+        return angleToAdjust;
+    }
+
+    public rotateTo(anotherAngle: GAngle, rotationSpeed: number): void {
+        this.value = anotherAngle.value * rotationSpeed + this.value * (1 - rotationSpeed);
+    }
+
+    public normalizeTo(maxValue: number): number {
+        return (((this.value + Math.PI) / (2 * Math.PI)) * maxValue) % maxValue;
+    }
+
+    public isClose(anotherAngle: GAngle, tollerance: number): boolean {
+        return Math.abs(this.value - anotherAngle.value) < tollerance;
+    }
+
+    public getValue(): number {
+        return this.value;
     }
 }

@@ -10,9 +10,12 @@ export class NewQuadTree<T extends IUnit> {
     public level = 0;
     public maxLevels = 5;
 
-    constructor(boundBox: GBounds, lvl: number) {
+    private boundsFunction: (u: T) => GBounds;
+
+    constructor(boundBox: GBounds, lvl: number, boundsFunction: (u: T) => GBounds) {
         this.bounds = boundBox || GBounds.from(0, 0, 0, 0)
         this.level = lvl || 0;
+        this.boundsFunction = boundsFunction;
     }
 
     public clear() {
@@ -28,15 +31,15 @@ export class NewQuadTree<T extends IUnit> {
             b1.y + b1.height > b0.y;
     }
 
-    public colliding(bounds: GBounds, source: T): T[] {
-        return this.getAllObjects([]).filter(object => object !== source && this.checkCollision(bounds, object.getBounds()));
+    public colliding(bounds: GBounds, source?: T): T[] {
+        return this.getAllObjects([]).filter(object => object !== source && this.checkCollision(bounds, this.boundsFunction(object)));
     }
 
     public detectCollision(): T[] {
         let collision: T[] = [];
         this.getAllObjects([]).forEach(first => {
             this.findObjects([], first).forEach(second => {
-                if (this.checkCollision(first.getBounds(), second.getBounds())) {
+                if (this.checkCollision(this.boundsFunction(first), this.boundsFunction(second))) {
                     collision.push(first);
                     collision.push(second)
                 }
@@ -132,7 +135,7 @@ export class NewQuadTree<T extends IUnit> {
         let index = -1;
         let verticalMidpoint: number = this.bounds.x + this.bounds.width / 2;
         let horizontalMidpoint: number = this.bounds.y + this.bounds.height / 2;
-        let objBounds: GBounds = obj.getBounds();
+        let objBounds: GBounds = this.boundsFunction(obj);
         // Object can fit completely within the top quadrant
         let topQuadrant: boolean = (objBounds.y < horizontalMidpoint && objBounds.y + objBounds.height < horizontalMidpoint);
         // Object can fit completely within the bottom quandrant
@@ -174,25 +177,25 @@ export class NewQuadTree<T extends IUnit> {
             y: this.bounds.y,
             width: subWidth,
             height: subHeight
-        }), this.level + 1);
+        }), this.level + 1, this.boundsFunction);
         this.nodes[1] = new NewQuadTree<T>(GBounds.fromJSON({
             x: this.bounds.x,
             y: this.bounds.y,
             width: subWidth,
             height: subHeight
-        }), this.level + 1);
+        }), this.level + 1, this.boundsFunction);
         this.nodes[2] = new NewQuadTree<T>(GBounds.fromJSON({
             x: this.bounds.x,
             y: this.bounds.y + subHeight,
             width: subWidth,
             height: subHeight
-        }), this.level + 1);
+        }), this.level + 1, this.boundsFunction);
         this.nodes[3] = new NewQuadTree<T>(GBounds.fromJSON({
             x: this.bounds.x + subWidth,
             y: this.bounds.y + subHeight,
             width: subWidth,
             height: subHeight
-        }), this.level + 1);
+        }), this.level + 1, this.boundsFunction);
     };
 }
 

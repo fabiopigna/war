@@ -27,13 +27,13 @@ export class Environment {
 
     public updateQuadTree(): void {
         let units: IUnit[] = Array.from(this.map.values());
-        
+
         let targetables: ITargetableUnit[] = units.reduce((result, unit) => result.concat(ITargetableUnitTyper.isTargetableUnit(unit) ? [unit] : []), []);
-        this.targetableQuadTree = new NewQuadTree<ITargetableUnit>(this.world.getBounds(), 10);
+        this.targetableQuadTree = new NewQuadTree<ITargetableUnit>(this.world.getBounds(), 10, (t: ITargetableUnit) => t.getTargetableBounds());
         this.targetableQuadTree.insert(targetables);
 
         let groundables: IGroundableUnit[] = units.reduce((result, unit) => result.concat(IGroundableUnitTyper.isGroundableUnit(unit) ? [unit] : []), []);
-        this.groundableQuadTree = new NewQuadTree<IGroundableUnit>(this.world.getBounds(), 10);
+        this.groundableQuadTree = new NewQuadTree<IGroundableUnit>(this.world.getBounds(), 10, (g: IGroundableUnit) => g.getGroundBounds());
         this.groundableQuadTree.insert(groundables);
     }
 

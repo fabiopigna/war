@@ -11,6 +11,8 @@ export class SoldierConfig extends MoveConfig implements IUnitConfig {
     public textures: Texture[];
     public armyKey: string;
     public rotationSpeed: number = 0.2;
+    public rotationTollerance:number = 0.2;
     public isHuman: boolean = false;
+    public frameNumber: number = 24;
 
 }
