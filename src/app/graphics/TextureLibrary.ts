@@ -29,12 +29,14 @@ export class TextureLibrary {
         }
 
         this.tank = { body: [], turret: [] };
-        for (let i = 0; i < 1; i++) {
-            const val: string = i < 10 ? '00' + i : i < 100 ? '0' + i : '' + i;
-            this.tank.body.push(resources['soldier'].textures['tank_' + val + '.png']);
-        }
+        // for (let i = 0; i < 2; i++) {
+        //     const val: string = i < 10 ? '00' + i : i < 100 ? '0' + i : '' + i;
+        //     this.tank.body.push(resources['soldier'].textures['tank_' + val + 'b.png']);
+        // }
 
-        for (let i = 0; i < 7; i++) {
+            this.tank.body.push(resources['soldier'].textures['tank_0-00b.png']);
+            this.tank.body.push(resources['soldier'].textures['tank_0-15b.png']);
+        for (let i = 0; i < 0; i++) {
             const val: string = i < 10 ? '00' + i : i < 100 ? '0' + i : '' + i;
             this.tank.turret.push(resources['soldier'].textures['turret_' + val + '.png']);
         }
