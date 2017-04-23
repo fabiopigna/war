@@ -43,6 +43,10 @@ export class HumanMoveLogic implements IMoveLogic {
     private isArrived(): boolean {
         return !this.target || this.target.isClose(this.unit.getGroundBounds().bottomCenter, this.config.tollerance)
     }
+    
+    public getAngle(): GAngle {
+        return this.angle;
+    }
 
 
 

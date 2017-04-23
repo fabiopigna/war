@@ -5,6 +5,7 @@ export class TextureLibrary {
     public soldierTexture: Texture[];
     public soldierRedTexture: Texture[];
     public shotTexture: { rifle: Texture, gunner: Texture };
+    public tank: { body: Texture[], turret: Texture[] };
 
     public load(): loaders.Loader {
 
@@ -25,6 +26,17 @@ export class TextureLibrary {
         for (let i = 0; i < 24; i++) {
             const val: string = i < 10 ? '00' + i : i < 100 ? '0' + i : '' + i;
             this.soldierRedTexture.push(resources['soldier'].textures['soldier_red_' + val + '.png']);
+        }
+
+        this.tank = { body: [], turret: [] };
+        for (let i = 0; i < 7; i++) {
+            const val: string = i < 10 ? '00' + i : i < 100 ? '0' + i : '' + i;
+            this.tank.body.push(resources['soldier'].textures['tank_' + val + '.png']);
+        }
+
+        for (let i = 0; i < 7; i++) {
+            const val: string = i < 10 ? '00' + i : i < 100 ? '0' + i : '' + i;
+            this.tank.turret.push(resources['soldier'].textures['turret_' + val + '.png']);
         }
 
         this.shotTexture = {

@@ -1,31 +1,32 @@
-import { GAngle } from '../../shapes/GAngle';
-import { GVector } from '../../shapes/GVector';
-import { GBounds } from '../../shapes/GBounds';
-import { ITargetableUnit } from '../ITargetableUnit';
-import { IGroundableUnit } from '../IGroundableUnit';
-import { GPoint } from '../../shapes/GPoint';
-import { HumanMoveLogic } from './movement/HumanMoveLogic';
-import { RandomMoveLogic } from './movement/RandomMoveLogic';
-import { IMoveLogic } from './movement/IMoveLogic';
-import { IInteractiveUnit } from '../IInteractiveUnit';
+import { Turret } from './Turret';
+import { Soldier } from '../soldier/Soldier';
+import { HumanMoveLogic } from '../soldier/movement/HumanMoveLogic';
+import { RandomMoveLogic } from '../soldier/movement/RandomMoveLogic';
+import { IMoveLogic } from '../soldier/movement/IMoveLogic';
+import { Health } from '../soldier/Health';
 import { Environment } from '../../environment/Environment';
-import { Army } from '../army/Army';
-import { SoldierConfig } from './SoldierConfig';
+import { GAngle } from '../../shapes/GAngle';
+import { GBounds } from '../../shapes/GBounds';
+import { GPoint } from '../../shapes/GPoint';
+import { GVector } from '../../shapes/GVector';
+import { IGroundableUnit } from '../IGroundableUnit';
+import { IInteractiveUnit } from '../IInteractiveUnit';
+import { ITargetableUnit } from '../ITargetableUnit';
 import { Rifle } from '../shots/Rifle';
 import { Unit } from '../Unit';
-import { Health } from './Health';
-import { Container, extras, interaction, Point } from 'pixi.js';
-export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, ITargetableUnit {
+import { TankConfig } from './TankConfig';
+import { Container, extras, interaction } from 'pixi.js';
 
 
 
+export class Tank extends Unit implements IInteractiveUnit, IGroundableUnit, ITargetableUnit {
 
-    public config: SoldierConfig;
+    public config: TankConfig;
+    private health: Health;
+    private turret: Turret;
+
     public container: Container;
     public sprite: extras.AnimatedSprite;
-
-    private health: Health;
-    private weapon: Rifle;
 
     private direction: GPoint;
     private angle: GAngle;
@@ -33,7 +34,7 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
     private moveTarget: GPoint;
     private moveLogic: IMoveLogic;
 
-    constructor(env: Environment, config: SoldierConfig) {
+    constructor(env: Environment, config: TankConfig) {
         super(env, config);
         this.config = config;
         this.container = new Container();
@@ -41,13 +42,12 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
         this.sprite.animationSpeed = 1;
         this.sprite.interactive = true;
         this.sprite.on('pointerdown', (event: interaction.InteractionEvent) => this.onClick(event));
-        this.bounds = new GBounds();
-        this.bounds.width = 32;
-        this.bounds.height = 32;
-        this.weapon = new Rifle(env, this);
-
-        this.health = new Health(env, this);
         this.container.addChild(this.sprite);
+        this.bounds = new GBounds();
+        this.bounds.width = 64;
+        this.bounds.height = 64;
+        this.health = new Health(env, this);
+        this.turret = new Turret(env, config.turretConfig, this);
         this.angle = new GAngle(0.5);
         this.sprite.gotoAndStop(this.angle.normalizeTo(this.config.frameNumber));
         if (!this.config.isHuman) {
@@ -61,7 +61,6 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
         this.bounds.sum(vector);
         this.container.x = this.bounds.x;
         this.container.y = this.bounds.y;
-        // this.container.parent.setChildIndex(this.container, this.bounds.y);
     }
 
     public moveTo(point: GPoint): void {
@@ -93,24 +92,8 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
             return;
         }
         this.moveLogic.updateLogic(delta);
+        this.sprite.gotoAndStop(this.moveLogic.getAngle().normalizeTo(this.config.frameNumber));
         this.container.position.set(this.bounds.x, this.bounds.y);
-   
-        let target: ITargetableUnit = this.weapon.getTargets()
-            .filter(target => target.canBeTargetOf(this))
-            .first();
-        if (target) {
-            let targetAngle: GAngle = this.weapon.getRotationToTarget(target);
-            if (targetAngle) {
-                this.angle = targetAngle.flipFlop(this.angle);
-                this.angle.rotateTo(targetAngle, this.config.rotationSpeed);
-                this.sprite.gotoAndStop(this.angle.normalizeTo(this.config.frameNumber));
-            }
-            if (this.weapon.needToReload()) {
-                this.weapon.reload();
-            } else if (this.weapon.canFire(delta) && this.angle.isClose(targetAngle, this.config.rotationTollerance)) {
-                this.weapon.fireShot(this.angle);
-            }
-        }
     }
 
     public getTargetableBounds(): GBounds {

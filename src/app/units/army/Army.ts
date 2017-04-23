@@ -1,3 +1,5 @@
+import { TankConfig } from '../tank/TankConfig';
+import { Tank } from '../tank/Tank';
 import { GSize } from '../../shapes/GSize';
 import { GVector } from '../../shapes/GVector';
 import { GPoint } from '../../shapes/GPoint';
@@ -12,18 +14,31 @@ export class Army {
 
     public env: Environment
     public soldiers: Soldier[];
-    public config: SoldierConfig;
+    public tanks: Tank[];
 
-    constructor(env: Environment, config: SoldierConfig) {
+    constructor(env: Environment) {
         this.env = env;
         this.soldiers = [];
-        this.config = config;
+        this.tanks = [];
     }
 
-    public createSoldiers(total: number, bounds: GBounds): void {
+    public createTanks(total: number, bounds: GBounds, config: TankConfig): void {
         for (let i = 0; i < total; i++) {
             this.env.updateQuadTree();
-            let soldier: Soldier = new Soldier(this.env, this.config);
+            let tank: Tank = new Tank(this.env, config);
+            do {
+                let vector: GVector = new GVector(Math.random() * bounds.width, Math.random() * bounds.height);
+                tank.moveTo(bounds.topLeft.plus(vector));
+            } while (!this.env.groundableQuadTree.colliding(tank.getGroundBounds(), tank).isEmpty());
+            tank.start();
+            this.tanks.push(tank);
+        }
+    }
+
+    public createSoldiers(total: number, bounds: GBounds, config: SoldierConfig): void {
+        for (let i = 0; i < total; i++) {
+            this.env.updateQuadTree();
+            let soldier: Soldier = new Soldier(this.env, config);
             do {
                 let vector: GVector = new GVector(Math.random() * bounds.width, Math.random() * bounds.height);
                 soldier.moveTo(bounds.topLeft.plus(vector));

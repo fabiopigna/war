@@ -1,5 +1,5 @@
 import { Environment } from '../../environment/Environment';
-import { Soldier } from './Soldier';
+import { IUnit } from '../IUnit';
 import { Container, Graphics } from 'pixi.js';
 export class Health {
 
@@ -8,7 +8,7 @@ export class Health {
     private maxLife: number = 50;
     private life: number = this.maxLife;
 
-    constructor(env: Environment, soldier: Soldier) {
+    constructor(env: Environment, unit: IUnit) {
         this.healthBar = new Container();
         this.healthBar.position.set(0, -2);
         this.outerBar = new Graphics();
@@ -16,7 +16,7 @@ export class Health {
         this.outerBar.drawRect(8, 0, 16, 2);
         this.outerBar.endFill();
         this.healthBar.addChild(this.outerBar);
-        soldier.container.addChild(this.healthBar);
+        unit.getContainer().addChild(this.healthBar);
 
     }
 

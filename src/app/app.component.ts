@@ -1,3 +1,5 @@
+import { TurretConfig } from './units/tank/TurretConfig';
+import { TankConfig } from './units/tank/TankConfig';
 import { IUnit } from './units/IUnit';
 import { GBounds } from './shapes/GBounds';
 import { WorldConfig } from './units/world/WorldConfig';
@@ -22,7 +24,7 @@ import { World } from "app/units/world/World";
 export class AppComponent implements OnInit {
   title = 'app works!';
 
-  public fps: string;
+  public fps: any;
   public app: Application;
 
   public redArmy: Army;
@@ -33,45 +35,70 @@ export class AppComponent implements OnInit {
   constructor(private elementRef: ElementRef) {
     this.textureLibrary = new TextureLibrary();
 
+
   }
 
+  public requestFullscreen(): void {
+    document.documentElement.webkitRequestFullscreen();
+  }
 
   ngOnInit(): void {
 
     let envConfig: EnvironmentConfig = new EnvironmentConfig();
     let worldConfig: WorldConfig = new WorldConfig();
-    this.app = new Application(worldConfig.width, worldConfig.height, { antialias: true });
+    let resolution = window.devicePixelRatio;
+    worldConfig.width = resolution * window.screen.availWidth;
+    worldConfig.height = resolution * window.screen.availHeight;
+    this.app = new Application(worldConfig.width, worldConfig.height, { antialias: true, resolution: 1 });
     this.map = new Map<string, IUnit>();
-
+    // document.write('<meta name="viewport" content="initial-scale=' + (1 / window.devicePixelRatio) + ' user-scalable=no">');
     this.app.renderer.backgroundColor = 0x447711;
+    // this.app.renderer.view.style.position = 'absolute'
+    this.app.renderer.view.style.top = '0px'
+    this.app.renderer.view.style.left = '0px'
+
+
 
     this.elementRef.nativeElement.appendChild(this.app.view);
     this.textureLibrary.load().onComplete.add(() => {
+      this.fps = window.screen.availWidth
+
       this.env = new Environment(this.map, this.textureLibrary);
       this.env.world = new World(this.env, worldConfig, this.app.stage);
 
-      let blackConfig: SoldierConfig = new SoldierConfig();
-      blackConfig.textures = this.textureLibrary.soldierTexture;
-      blackConfig.armyKey = 'black';
-      blackConfig.isHuman = true;
+      let tankConfig: TankConfig = new TankConfig();
+      tankConfig.armyKey = 'black';
+      tankConfig.textures = this.textureLibrary.tank.body;
+      tankConfig.turretConfig = new TurretConfig();
+      tankConfig.turretConfig.textures = this.textureLibrary.tank.turret;
 
-      this.blackArmy = new Army(this.env, blackConfig);
-      this.blackArmy.createSoldiers(100, GBounds.from(0, 0, this.env.world.getBounds().width * 0.5, this.env.world.getBounds().height));
+
+
+      let blackSoldierConfig: SoldierConfig = new SoldierConfig();
+      blackSoldierConfig.textures = this.textureLibrary.soldierTexture;
+      blackSoldierConfig.armyKey = 'black';
+      blackSoldierConfig.isHuman = true;
+      let blackBounds: GBounds = GBounds.from(0, 0, this.env.world.getBounds().width * 0.5, this.env.world.getBounds().height);
+
+      this.blackArmy = new Army(this.env);
+      this.blackArmy.createSoldiers(10, blackBounds, blackSoldierConfig);
+      this.blackArmy.createTanks(1, blackBounds, tankConfig);
 
       let redConfig: SoldierConfig = new SoldierConfig();
       redConfig.textures = this.textureLibrary.soldierRedTexture;
       redConfig.armyKey = 'red';
+      let redBounds: GBounds = GBounds.from(this.env.world.getBounds().width * 0.5, 0, this.env.world.getBounds().width * 0.5, this.env.world.getBounds().height);
 
-      this.redArmy = new Army(this.env, redConfig);
-      this.redArmy.createSoldiers(100, GBounds.from(this.env.world.getBounds().width * 0.5, 0, this.env.world.getBounds().width * 0.5, this.env.world.getBounds().height));
-      console.log(this.redArmy.soldiers)
+      this.redArmy = new Army(this.env);
+      this.redArmy.createSoldiers(10, redBounds, redConfig);
+
       this.app.ticker.add((delta) => this.gameLoop(delta));
     });
   }
 
 
   public gameLoop(delta: number): void {
-    this.fps = this.app.ticker.FPS.toFixed(0);
+    // this.fps = this.app.ticker.FPS.toFixed(0);
     this.env.updateQuadTree();
     this.map.forEach((unit: IUnit) => {
       unit.updateLogic(delta);
