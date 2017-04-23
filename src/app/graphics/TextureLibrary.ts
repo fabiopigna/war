@@ -29,7 +29,7 @@ export class TextureLibrary {
         }
 
         this.tank = { body: [], turret: [] };
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < 1; i++) {
             const val: string = i < 10 ? '00' + i : i < 100 ? '0' + i : '' + i;
             this.tank.body.push(resources['soldier'].textures['tank_' + val + '.png']);
         }

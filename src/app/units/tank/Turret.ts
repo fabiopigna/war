@@ -21,12 +21,12 @@ export class Turret {
     }
 
     private init(): void {
-        this.sprite = new PIXI.extras.AnimatedSprite(this.config.textures);
-        this.sprite.anchor.set(0.5);
-        this.sprite.position.set(this.relativeBounds.center.x, this.relativeBounds.center.y);
-        this.sprite.animationSpeed = 0.1;
-        this.sprite.play();
-        this.tank.getContainer().addChild(this.sprite);
+        // this.sprite = new PIXI.extras.AnimatedSprite(this.config.textures);
+        // this.sprite.anchor.set(0.5);
+        // this.sprite.position.set(this.relativeBounds.center.x, this.relativeBounds.center.y);
+        // this.sprite.animationSpeed = 0.1;
+        // this.sprite.play();
+        // this.tank.getContainer().addChild(this.sprite);
     }
 
 

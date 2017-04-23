@@ -51,9 +51,7 @@ export class AppComponent implements OnInit {
     worldConfig.height = resolution * window.screen.availHeight;
     this.app = new Application(worldConfig.width, worldConfig.height, { antialias: true, resolution: 1 });
     this.map = new Map<string, IUnit>();
-    // document.write('<meta name="viewport" content="initial-scale=' + (1 / window.devicePixelRatio) + ' user-scalable=no">');
     this.app.renderer.backgroundColor = 0x447711;
-    // this.app.renderer.view.style.position = 'absolute'
     this.app.renderer.view.style.top = '0px'
     this.app.renderer.view.style.left = '0px'
 

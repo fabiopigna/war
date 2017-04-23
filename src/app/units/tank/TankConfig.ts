@@ -14,7 +14,7 @@ export class TankConfig extends MoveConfig implements IUnitConfig {
     public rotationSpeed: number = 0.2;
     public rotationTollerance: number = 0.2;
     public isHuman: boolean = false;
-    public frameNumber: number = 7;
+    public frameNumber: number = 1;
     public turretConfig: TurretConfig;
 
 }
