@@ -13,8 +13,8 @@ export class TankConfig extends MoveConfig implements IUnitConfig {
     public armyKey: string;
     public rotationSpeed: number = 0.2;
     public rotationTollerance: number = 0.2;
-    public isHuman: boolean = false;
-    public frameNumber: number = 2;
+    public isHuman: boolean = true;
+    public frameNumber: number =1;
     public turretConfig: TurretConfig;
 
 }

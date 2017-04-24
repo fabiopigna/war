@@ -47,7 +47,4 @@ export class HumanMoveLogic implements IMoveLogic {
     public getAngle(): GAngle {
         return this.angle;
     }
-
-
-
 }

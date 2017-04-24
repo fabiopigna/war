@@ -16,7 +16,7 @@ export class Turret {
         this.env = env;
         this.config = config;
         this.tank = tank;
-        this.relativeBounds = GBounds.from(0, 0, 64, 64);
+        this.relativeBounds = GBounds.from(0, 0, 156, 156);
         this.init();
     }
 

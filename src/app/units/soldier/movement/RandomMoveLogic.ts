@@ -32,7 +32,7 @@ export class RandomMoveLogic implements IMoveLogic {
         }
     }
 
-    public getAngle():GAngle{
+    public getAngle(): GAngle {
         return this.angle;
     }
 

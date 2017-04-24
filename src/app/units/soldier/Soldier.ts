@@ -17,9 +17,6 @@ import { Health } from './Health';
 import { Container, extras, interaction, Point } from 'pixi.js';
 export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, ITargetableUnit {
 
-
-
-
     public config: SoldierConfig;
     public container: Container;
     public sprite: extras.AnimatedSprite;
@@ -42,8 +39,8 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
         this.sprite.interactive = true;
         this.sprite.on('pointerdown', (event: interaction.InteractionEvent) => this.onClick(event));
         this.bounds = new GBounds();
-        this.bounds.width = 32;
-        this.bounds.height = 32;
+        this.bounds.width = 48;
+        this.bounds.height = 58;
         this.weapon = new Rifle(env, this);
 
         this.health = new Health(env, this);
@@ -61,7 +58,6 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
         this.bounds.sum(vector);
         this.container.x = this.bounds.x;
         this.container.y = this.bounds.y;
-        // this.container.parent.setChildIndex(this.container, this.bounds.y);
     }
 
     public moveTo(point: GPoint): void {
@@ -69,13 +65,11 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
         this.bounds.y = point.y;
         this.container.x = this.bounds.x;
         this.container.y = this.bounds.y;
-
     }
 
     public start(): void {
         this.env.world.addUnit(this);
     }
-
 
     public getContainer(): Container {
         return this.container;
