@@ -19,6 +19,9 @@ import { AppComponent } from './app.component';
 })
 export class AppModule { }
 
+(<any>window).war = { debug: true };
+
+
 declare global {
   interface Array<T> {
     first(): T;

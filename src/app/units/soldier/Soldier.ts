@@ -1,3 +1,4 @@
+import { DeathLogic } from './logics/DeathLogic';
 import { GAngle } from '../../shapes/GAngle';
 import { GVector } from '../../shapes/GVector';
 import { GBounds } from '../../shapes/GBounds';
@@ -18,29 +19,41 @@ import { Container, extras, interaction, Point } from 'pixi.js';
 export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, ITargetableUnit {
 
     public config: SoldierConfig;
-    public container: Container;
-    public sprite: extras.AnimatedSprite;
+    private container: Container;
+    private sprite: extras.AnimatedSprite;
 
     private health: Health;
     private weapon: Rifle;
 
     private direction: GPoint;
     private angle: GAngle;
-    private bounds: GBounds;
+
+    private targetableBounds: GBounds;
+    private containerBounds: GBounds;
+
     private moveTarget: GPoint;
     private moveLogic: IMoveLogic;
+    private deathLogic: DeathLogic;
 
     constructor(env: Environment, config: SoldierConfig) {
         super(env, config);
         this.config = config;
         this.container = new Container();
-        this.sprite = new PIXI.extras.AnimatedSprite(config.textures);
+        this.sprite = new PIXI.extras.AnimatedSprite(config.spriteConfig.body);
         this.sprite.animationSpeed = 1;
         this.sprite.interactive = true;
         this.sprite.on('pointerdown', (event: interaction.InteractionEvent) => this.onClick(event));
-        this.bounds = new GBounds();
-        this.bounds.width = 48;
-        this.bounds.height = 58;
+
+        this.containerBounds = new GBounds();
+        this.containerBounds.width = this.config.spriteConfig.outerWidth;
+        this.containerBounds.height = this.config.spriteConfig.outerHeight;
+
+        this.targetableBounds = new GBounds();
+        this.targetableBounds.width = this.config.spriteConfig.innerWidth;
+        this.targetableBounds.height = this.config.spriteConfig.innerHeight;
+
+        this.moveTo(new GPoint(0, 0));
+
         this.weapon = new Rifle(env, this);
 
         this.health = new Health(env, this);
@@ -52,23 +65,24 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
         } else {
             this.moveLogic = new HumanMoveLogic(this.env, this, config);
         }
+        this.deathLogic = new DeathLogic(this);
+        this.env.world.addUnit(this);
     }
 
     public moveBy(vector: GVector): void {
-        this.bounds.sum(vector);
-        this.container.x = this.bounds.x;
-        this.container.y = this.bounds.y;
+        this.containerBounds.sum(vector);
+        this.targetableBounds.sum(vector);
+        this.container.x = this.containerBounds.x;
+        this.container.y = this.containerBounds.y;
     }
 
     public moveTo(point: GPoint): void {
-        this.bounds.x = point.x;
-        this.bounds.y = point.y;
-        this.container.x = this.bounds.x;
-        this.container.y = this.bounds.y;
-    }
-
-    public start(): void {
-        this.env.world.addUnit(this);
+        this.containerBounds.x = point.x;
+        this.containerBounds.y = point.y;
+        this.targetableBounds.x = point.x + 0.5 * (this.config.spriteConfig.outerWidth - this.config.spriteConfig.innerWidth);
+        this.targetableBounds.y = point.y + 0.5 * (this.config.spriteConfig.outerHeight - this.config.spriteConfig.innerHeight);
+        this.container.x = this.containerBounds.x;
+        this.container.y = this.containerBounds.y;
     }
 
     public getContainer(): Container {
@@ -77,42 +91,38 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
 
     public updateLogic(delta: number): void {
         if (this.health.isDead()) {
-            this.container.pivot.set(this.bounds.width * 0.5, this.bounds.height);
-            this.container.position.set(this.bounds.x + this.bounds.width * 0.5, this.bounds.y + this.bounds.height);
-            if (this.container.rotation >= -Math.PI * 0.5) {
-                this.container.rotation -= 0.1;
-            } else {
-                this.destroy();
-            }
-            return;
+            this.deathLogic.updateLogic(delta);
         }
-        this.moveLogic.updateLogic(delta);
-        this.container.position.set(this.bounds.x, this.bounds.y);
-   
+
+
         let target: ITargetableUnit = this.weapon.getTargets()
-            .filter(target => target.canBeTargetOf(this))
+            .filter(maybeTarget => maybeTarget.canBeTargetOf(this))
             .first();
         if (target) {
             let targetAngle: GAngle = this.weapon.getRotationToTarget(target);
             if (targetAngle) {
                 this.angle = targetAngle.flipFlop(this.angle);
                 this.angle.rotateTo(targetAngle, this.config.rotationSpeed);
-                this.sprite.gotoAndStop(this.angle.normalizeTo(this.config.frameNumber));
+
             }
             if (this.weapon.needToReload()) {
                 this.weapon.reload();
             } else if (this.weapon.canFire(delta) && this.angle.isClose(targetAngle, this.config.rotationTollerance)) {
                 this.weapon.fireShot(this.angle);
             }
+        } else {
+            this.moveLogic.updateLogic(delta);
+            this.container.position.set(this.containerBounds.x, this.containerBounds.y);
         }
+        this.sprite.gotoAndStop(this.angle.normalizeTo(this.config.frameNumber));
     }
 
     public getTargetableBounds(): GBounds {
-        return this.bounds;
+        return this.targetableBounds;
     }
 
     public getGroundBounds(): GBounds {
-        return GBounds.from(this.bounds.center.x - 4, this.bounds.bottom - 4, 8, 8);
+        return GBounds.from(this.containerBounds.center.x - 20, this.containerBounds.bottom - 20, 20, 20);
     }
 
     public getArmy(): string {
@@ -144,6 +154,9 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
         this.moveLogic.setTarget(GPoint.from(event.data.global));
     }
 
+    public getAngle(): GAngle {
+        return this.angle;
+    }
 
 
 

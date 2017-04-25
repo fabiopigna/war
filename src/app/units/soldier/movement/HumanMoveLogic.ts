@@ -12,39 +12,38 @@ export class HumanMoveLogic implements IMoveLogic {
 
     private unit: IGroundableUnit;
     private env: Environment;
-    private angle: GAngle;
     private speed: GVector;
-    private target: GPoint;
+    private targetPoint: GPoint;
     private config: MoveConfig;
+
+    private targetAngle: GAngle;
 
     constructor(env: Environment, unit: IGroundableUnit, moveConfig: MoveConfig) {
         this.env = env;
         this.unit = unit;
         this.config = moveConfig;
         this.speed = moveConfig.defaultSpeed;
-        this.angle = new GAngle(0);
     }
 
     public updateLogic(delta: number): void {
-        if (this.isArrived()) return;
-        let velocity: GVector = this.angle.mul(this.speed);
-        let maybeBounds: GBounds = this.unit.getGroundBounds().copy().sum(velocity);
-        let collision: IUnit[] = this.env.groundableQuadTree.colliding(maybeBounds, this.unit);
-        if (collision.isEmpty()) {
-            this.unit.moveBy(velocity);
+        if (this.isArrived()) { return; };
+        let targetAngle: GAngle = GAngle.from(this.unit.getGroundBounds().bottomCenter, this.targetPoint);
+        this.unit.getAngle().rotateTo(targetAngle, this.config.rotationSpeed);
+        if (this.unit.getAngle().isClose(targetAngle, this.config.rotationTollerance)) {
+            let velocity: GVector = this.unit.getAngle().mul(this.speed);
+            let maybeBounds: GBounds = this.unit.getGroundBounds().copy().sum(velocity);
+            let collision: IUnit[] = this.env.groundableQuadTree.colliding(maybeBounds, this.unit);
+            if (collision.isEmpty()) {
+                this.unit.moveBy(velocity);
+            }
         }
     }
 
     public setTarget(point: GPoint): void {
-        this.target = point;
-        this.angle = GAngle.from(this.unit.getGroundBounds().bottomCenter, this.target);
+        this.targetPoint = point;
     }
 
     private isArrived(): boolean {
-        return !this.target || this.target.isClose(this.unit.getGroundBounds().bottomCenter, this.config.tollerance)
-    }
-    
-    public getAngle(): GAngle {
-        return this.angle;
+        return !this.targetPoint || this.targetPoint.isClose(this.unit.getGroundBounds().bottomCenter, this.config.tollerance);
     }
 }

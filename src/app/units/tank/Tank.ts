@@ -92,7 +92,7 @@ export class Tank extends Unit implements IInteractiveUnit, IGroundableUnit, ITa
             return;
         }
         this.moveLogic.updateLogic(delta);
-        this.sprite.gotoAndStop(this.moveLogic.getAngle().normalizeTo(this.config.frameNumber));
+        this.sprite.gotoAndStop(this.angle.normalizeTo(this.config.frameNumber));
         this.container.position.set(this.bounds.x, this.bounds.y);
     }
 
@@ -131,6 +131,10 @@ export class Tank extends Unit implements IInteractiveUnit, IGroundableUnit, ITa
 
     public handleClickOnWorld(event: interaction.InteractionEvent): void {
         this.moveLogic.setTarget(GPoint.from(event.data.global));
+    }
+
+    public getAngle(): GAngle {
+        return this.angle;
     }
 
 

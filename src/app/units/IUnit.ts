@@ -7,5 +7,6 @@ export interface IUnit {
     config: IUnitConfig;
 
     updateLogic(delta: number): void;
-    getContainer():Container;
+    getContainer(): Container;
+    destroy(): void;
 }

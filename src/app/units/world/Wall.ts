@@ -1,3 +1,4 @@
+import { GAngle } from '../../shapes/GAngle';
 import { GPoint } from '../../shapes/GPoint';
 import { GVector } from '../../shapes/GVector';
 import { IGroundableUnit } from '../IGroundableUnit';
@@ -17,6 +18,9 @@ export class Wall extends Unit implements IGroundableUnit {
         this.bounds = bounds;
     }
 
+    public getAngle(): GAngle {
+        return undefined;
+    }
 
     public getContainer(): Container {
         return this.wallContainer;
@@ -36,4 +40,5 @@ export class Wall extends Unit implements IGroundableUnit {
 
     }
 
+    public destroy(): void { }
 }

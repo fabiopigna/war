@@ -54,4 +54,8 @@ export class World implements IUnit {
         return this.container;
     }
 
+    public destroy(): void {
+
+    }
+
 }

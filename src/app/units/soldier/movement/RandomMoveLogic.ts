@@ -11,30 +11,31 @@ export class RandomMoveLogic implements IMoveLogic {
 
     private unit: IGroundableUnit;
     private env: Environment;
-    private angle: GAngle;
-    private speed: GVector;
+    private config: MoveConfig;
+
+    private targetAngle: GAngle;
 
     constructor(env: Environment, unit: IGroundableUnit, config: MoveConfig) {
         this.env = env;
         this.unit = unit;
-        this.speed = config.defaultSpeed;
-        this.angle = new GAngle(Math.random() * 2 * Math.PI);
+        this.config = config;
+        this.targetAngle = new GAngle(Math.random() * 2 * Math.PI);
     }
 
     public updateLogic(delta: number): void {
-        let velocity: GVector = this.angle.mul(this.speed);
+        let velocity: GVector = this.targetAngle.mul(this.config.defaultSpeed);
         let maybeBounds: GBounds = this.unit.getGroundBounds().copy().sum(velocity);
         let collision: IUnit[] = this.env.groundableQuadTree.colliding(maybeBounds, this.unit);
         if (collision.isEmpty()) {
-            this.unit.moveBy(velocity);
+            this.unit.getAngle().rotateTo(this.targetAngle, this.config.rotationSpeed);
+            if (this.unit.getAngle().isClose(this.targetAngle, this.config.rotationTollerance)) {
+                this.unit.moveBy(velocity);
+            }
         } else {
-            this.angle = new GAngle(Math.random() * 2 * Math.PI);
+            this.targetAngle = new GAngle(Math.random() * 2 * Math.PI);
         }
     }
 
-    public getAngle(): GAngle {
-        return this.angle;
-    }
 
     public setTarget(point: GPoint): void {
         // do nothings

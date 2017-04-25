@@ -43,7 +43,6 @@ export class Army {
                 let vector: GVector = new GVector(Math.random() * bounds.width, Math.random() * bounds.height);
                 soldier.moveTo(bounds.topLeft.plus(vector));
             } while (!this.env.groundableQuadTree.colliding(soldier.getGroundBounds(), soldier).isEmpty());
-            soldier.start();
             this.soldiers.push(soldier);
         }
     }

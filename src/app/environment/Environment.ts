@@ -1,3 +1,5 @@
+import { UnitSelection } from './UnitSelection';
+import { DebugUnit } from '../units/world/DebugUnit';
 import { ITargetableUnit, ITargetableUnitTyper } from '../units/ITargetableUnit';
 import { IGroundableUnit, IGroundableUnitTyper } from '../units/IGroundableUnit';
 import { IUnit } from '../units/IUnit';
@@ -7,17 +9,19 @@ import { TextureLibrary } from '../graphics/TextureLibrary';
 import { Unit } from '../units/Unit';
 import { NewQuadTree } from '../NewQuadTree';
 import { Container, Application, interaction, Rectangle } from 'pixi.js';
-import { UnitSelection } from "app/environment/UnitSelection";
 
 export class Environment {
 
-    public stage: Container;
     public groundableQuadTree: NewQuadTree<IGroundableUnit>;
     public targetableQuadTree: NewQuadTree<ITargetableUnit>;
     public selection: UnitSelection;
-    public map: Map<string, IUnit>
+    public map: Map<string, IUnit>;
     public textureLibrary: TextureLibrary;
     public world: World;
+
+    public debug: { map: Map<string, DebugUnit>, container: Container };
+
+    public isDebug: boolean = true;
 
     constructor(map: Map<string, IUnit>, textureLibrary: TextureLibrary) {
         this.map = map;

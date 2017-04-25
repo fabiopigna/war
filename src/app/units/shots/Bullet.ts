@@ -65,7 +65,7 @@ export class Bullet extends Unit {
 
     public checkCollision(): ITargetableUnit[] {
         const bulletTrace: GBounds = GBounds.fromPoints(this.bounds.topLeft, this.bounds.topLeft.plus(this.velocity));
-        return this.env.targetableQuadTree.colliding(bulletTrace, this.shooter)
+        return this.env.targetableQuadTree.colliding(bulletTrace, this.shooter);
     }
 
     public insideWorldBounds(): boolean {
