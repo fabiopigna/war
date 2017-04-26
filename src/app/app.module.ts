@@ -1,3 +1,5 @@
+import { Timsort } from './utility/Timsort';
+import { VirtualTimeScheduler } from 'rxjs/Rx';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -27,6 +29,7 @@ declare global {
     first(): T;
     takeFirst<R>(callback: (t: T) => R): R;
     isEmpty(): boolean;
+    timsort(compare: (t0: T, t1: T) => number): void;
   }
 }
 
@@ -51,3 +54,4 @@ if (!Array.prototype.isEmpty) {
     return this.length === 0;
   }
 }
+Timsort.run();

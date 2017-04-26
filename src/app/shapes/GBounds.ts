@@ -34,6 +34,10 @@ export class GBounds {
         return bounds;
     }
 
+    public static fromCenterWithSize(center: GPoint, width: number, height: number): GBounds {
+        return GBounds.from(center.x - 0.5 * width, center.y - 0.5 * height, width, height);
+    }
+
     public static fromJSON(json: { x: number, y: number, width: number, height: number }): GBounds {
         return GBounds.from(json.x, json.y, json.width, json.height);
     }

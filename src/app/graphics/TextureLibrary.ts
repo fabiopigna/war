@@ -25,7 +25,7 @@ export class TextureLibrary {
     }
 
     public setupSprites(loaded: loaders.Loader, resources: any): void {
-        this.soldierBlack = new SpriteConfig(72, 72, 48, 58);
+        this.soldierBlack = new SpriteConfig(96, 96, 36, 64);
         this.soldierRed = new SpriteConfig(32, 32, 32, 32);
 
         for (let i = 0; i < 24; i++) {

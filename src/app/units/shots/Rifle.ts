@@ -22,7 +22,7 @@ export class Rifle {
     constructor(private env: Environment, private soldier: Soldier) {
         this.lastShotTime = performance.now();
         this.weaponConfig = new WeaponConfig();
-        this.weaponConfig.bulletSpeed = new GVector(10, 10);
+        this.weaponConfig.bulletSpeed = new GVector(15, 15);
         this.weaponConfig.bulletTexture = this.env.textureLibrary.shotTexture.gunner;
     }
 

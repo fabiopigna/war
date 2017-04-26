@@ -28,7 +28,6 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
     private direction: GPoint;
     private angle: GAngle;
 
-    private targetableBounds: GBounds;
     private containerBounds: GBounds;
 
     private moveTarget: GPoint;
@@ -48,9 +47,6 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
         this.containerBounds.width = this.config.spriteConfig.outerWidth;
         this.containerBounds.height = this.config.spriteConfig.outerHeight;
 
-        this.targetableBounds = new GBounds();
-        this.targetableBounds.width = this.config.spriteConfig.innerWidth;
-        this.targetableBounds.height = this.config.spriteConfig.innerHeight;
 
         this.moveTo(new GPoint(0, 0));
 
@@ -71,7 +67,6 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
 
     public moveBy(vector: GVector): void {
         this.containerBounds.sum(vector);
-        this.targetableBounds.sum(vector);
         this.container.x = this.containerBounds.x;
         this.container.y = this.containerBounds.y;
     }
@@ -79,8 +74,6 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
     public moveTo(point: GPoint): void {
         this.containerBounds.x = point.x;
         this.containerBounds.y = point.y;
-        this.targetableBounds.x = point.x + 0.5 * (this.config.spriteConfig.outerWidth - this.config.spriteConfig.innerWidth);
-        this.targetableBounds.y = point.y + 0.5 * (this.config.spriteConfig.outerHeight - this.config.spriteConfig.innerHeight);
         this.container.x = this.containerBounds.x;
         this.container.y = this.containerBounds.y;
     }
@@ -118,11 +111,11 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
     }
 
     public getTargetableBounds(): GBounds {
-        return this.targetableBounds;
+        return GBounds.fromCenterWithSize(this.containerBounds.center, this.config.spriteConfig.innerWidth, this.config.spriteConfig.innerHeight);
     }
 
     public getGroundBounds(): GBounds {
-        return GBounds.from(this.containerBounds.center.x - 20, this.containerBounds.bottom - 20, 20, 20);
+        return GBounds.fromCenterWithSize(this.getTargetableBounds().bottomCenter, this.config.spriteConfig.innerWidth, this.config.spriteConfig.innerWidth);
     }
 
     public getArmy(): string {
@@ -147,6 +140,8 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
 
     public onClick(event: interaction.InteractionEvent): void {
         this.env.selection.setSelected(this);
+        console.log('container', this.container)
+        console.log('containerBounds', this.containerBounds)
         event.stopPropagation();
     }
 

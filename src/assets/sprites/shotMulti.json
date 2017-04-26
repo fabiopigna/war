@@ -2,15 +2,15 @@
 
 "gunner00.png":
 {
-	"frame": {"x":0,"y":0,"w":20,"h":1},
+	"frame": {"x":0,"y":0,"w":16,"h":2},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":1},
-	"sourceSize": {"w":20,"h":1}
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":2},
+	"sourceSize": {"w":16,"h":2}
 },
 "shot00.png":
 {
-	"frame": {"x":20,"y":0,"w":3,"h":2},
+	"frame": {"x":16,"y":0,"w":3,"h":2},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":3,"h":2},
@@ -21,8 +21,8 @@
 	"version": "1.0",
 	"image": "shotMulti.png",
 	"format": "RGBA8888",
-	"size": {"w":23,"h":2},
+	"size": {"w":19,"h":2},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:8464dc8f56da37df48193b1124739b6e:ca4068c1c41193cb7339ce5573c77b39:2a565ed95318dea1e0c73bde8d75c988$"
+	"smartupdate": "$TexturePacker:SmartUpdate:23db9a7ea0d70e9e9053e4bcbecbf913:a12fed4254828fcd4dd9f03846eba4d3:2a565ed95318dea1e0c73bde8d75c988$"
 }
 }

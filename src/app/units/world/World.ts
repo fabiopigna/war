@@ -1,3 +1,4 @@
+import { IGroundableUnit, IGroundableUnitTyper } from '../IGroundableUnit';
 import { IUnitConfig } from '../IUnitConfig';
 import { getRandomid } from '../RandomId';
 import { IUnit } from '../IUnit';
@@ -37,7 +38,9 @@ export class World implements IUnit {
     }
 
     public addUnit(unit: IUnit): void {
-        this.container.addChild(unit.getContainer());
+        let container = unit.getContainer();
+        container.name = unit.id;
+        this.container.addChild(container);
         this.env.map.set(unit.id, unit);
     }
 
@@ -47,7 +50,16 @@ export class World implements IUnit {
     }
 
     public updateLogic(delta: number): void {
-        this.container.children.sort((d0, d1) => d0.y - d1.y);
+
+        this.container.children.timsort((d0, d1) => {
+            let u0 = this.env.map.get(d0.name);
+            let u1 = this.env.map.get(d1.name);
+            if (IGroundableUnitTyper.isGroundableUnit(u0) && IGroundableUnitTyper.isGroundableUnit(u1)) {
+                return u0.getGroundBounds().bottom - u1.getGroundBounds().bottom;
+            }
+            return 0;
+
+        });
     }
 
     public getContainer(): Container {
