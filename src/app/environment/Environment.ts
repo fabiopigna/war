@@ -21,7 +21,7 @@ export class Environment {
 
     public debug: { map: Map<string, DebugUnit>, container: Container };
 
-    public isDebug: boolean = true;
+    public isDebug: boolean = false;
 
     constructor(map: Map<string, IUnit>, textureLibrary: TextureLibrary) {
         this.map = map;

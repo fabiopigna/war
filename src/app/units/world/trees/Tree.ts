@@ -43,7 +43,7 @@ export class Tree extends Unit implements IGroundableUnit {
     }
 
     public getGroundBounds(): GBounds {
-        return GBounds.from(this.containerBounds.center.x - 25, this.containerBounds.bottom - 40, 38, 30);
+        return GBounds.from(this.containerBounds.center.x - 20, this.containerBounds.bottom - 40, 38, 30);
     }
 
     public moveBy(vector: GVector): void {

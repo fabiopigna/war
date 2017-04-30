@@ -19,8 +19,7 @@ export class TextureLibrary {
 
     public load(): loaders.Loader {
         return PIXI.loader
-            .add('soldier', 'assets/sprites/provaMulti.json')
-            .add('shot', 'assets/sprites/shotMulti.json')
+            .add('soldier', 'src/assets/sprites/provaMulti.json')
             .load((l, r) => this.setupSprites(l, r))
     }
 
@@ -30,35 +29,35 @@ export class TextureLibrary {
 
         for (let i = 0; i < 24; i++) {
             const val: string = i < 10 ? '00' + i : i < 100 ? '0' + i : '' + i;
-            this.soldierBlack.body.push(resources['soldier'].textures['soldier/black_soldier-0' + this.angles[i] + '.png']);
+            this.soldierBlack.body.push(resources['soldier'].textures['black/soldier/black_soldier-0' + this.angles[i] + '.png']);
         }
 
         for (let i = 0; i < 24; i++) {
             const val: string = i < 10 ? '00' + i : i < 100 ? '0' + i : '' + i;
-            this.soldierRed.body.push(resources['soldier'].textures['soldier_red_' + val + '.png']);
+            this.soldierRed.body.push(resources['soldier'].textures['red/soldier_red_' + val + '.png']);
         }
 
         this.tank = { body: [], turret: [] };
         for (let i = 0; i < 1; i++) {
-            this.tank.body.push(resources['soldier'].textures['tank/black_tank_0' + this.angles[i] + '.png']);
+            this.tank.body.push(resources['soldier'].textures['black/tank/black_tank_0' + this.angles[i] + '.png']);
         }
 
         for (let i = 0; i < 24; i++) {
             const val: string = i < 10 ? '00' + i : i < 100 ? '0' + i : '' + i;
-            this.tank.turret.push(resources['soldier'].textures['turret/black_turret_0' + this.angles[i] + '.png']);
+            this.tank.turret.push(resources['soldier'].textures['black/turret/black_turret_0' + this.angles[i] + '.png']);
         }
 
         this.shotTexture = {
-            rifle: resources['shot'].textures['shot00.png'],
-            gunner: resources['shot'].textures['gunner00.png']
+            rifle: resources['soldier'].textures['bullet/gunner00.png'],
+            gunner: resources['soldier'].textures['bullet/gunner00.png']
         }
 
         this.world = {
-            oak: new SpriteConfig(128, 128, 128, 128)
+            oak: new SpriteConfig(156, 156, 156, 156)
         };
-        this.world.oak.body.push(resources['soldier'].textures['tree-45.png']);
-        this.world.oak.body.push(resources['soldier'].textures['tree+45.png']);
-        this.world.oak.body.push(resources['soldier'].textures['tree-135.png']);
-        this.world.oak.body.push(resources['soldier'].textures['tree+135.png']);
+        this.world.oak.body.push(resources['soldier'].textures['tree/tree-45.png']);
+        this.world.oak.body.push(resources['soldier'].textures['tree/tree+45.png']);
+        this.world.oak.body.push(resources['soldier'].textures['tree/tree-135.png']);
+        this.world.oak.body.push(resources['soldier'].textures['tree/tree+135.png']);
     }
 }

@@ -199,30 +199,115 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../png/black/soldier_black_000.png</key>
-            <key type="filename">../png/black/soldier_black_001.png</key>
-            <key type="filename">../png/black/soldier_black_002.png</key>
-            <key type="filename">../png/black/soldier_black_003.png</key>
-            <key type="filename">../png/black/soldier_black_004.png</key>
-            <key type="filename">../png/black/soldier_black_005.png</key>
-            <key type="filename">../png/black/soldier_black_006.png</key>
-            <key type="filename">../png/black/soldier_black_007.png</key>
-            <key type="filename">../png/black/soldier_black_008.png</key>
-            <key type="filename">../png/black/soldier_black_009.png</key>
-            <key type="filename">../png/black/soldier_black_010.png</key>
-            <key type="filename">../png/black/soldier_black_011.png</key>
-            <key type="filename">../png/black/soldier_black_012.png</key>
-            <key type="filename">../png/black/soldier_black_013.png</key>
-            <key type="filename">../png/black/soldier_black_014.png</key>
-            <key type="filename">../png/black/soldier_black_015.png</key>
-            <key type="filename">../png/black/soldier_black_016.png</key>
-            <key type="filename">../png/black/soldier_black_017.png</key>
-            <key type="filename">../png/black/soldier_black_018.png</key>
-            <key type="filename">../png/black/soldier_black_019.png</key>
-            <key type="filename">../png/black/soldier_black_020.png</key>
-            <key type="filename">../png/black/soldier_black_021.png</key>
-            <key type="filename">../png/black/soldier_black_022.png</key>
-            <key type="filename">../png/black/soldier_black_023.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0+105.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0+120.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0+135.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0+15.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0+150.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0+165.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0+180.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0+30.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0+45.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0+60.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0+75.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0+90.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0-0.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0-105.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0-120.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0-135.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0-15.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0-150.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0-165.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0-30.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0-45.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0-60.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0-75.png</key>
+            <key type="filename">../png/black/soldier/black_soldier-0-90.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>24,24,48,48</rect>
+                <key>scale9Paddings</key>
+                <rect>24,24,48,48</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../png/black/tank/black_tank_0+105.png</key>
+            <key type="filename">../png/black/tank/black_tank_0+120.png</key>
+            <key type="filename">../png/black/tank/black_tank_0+135.png</key>
+            <key type="filename">../png/black/tank/black_tank_0+15.png</key>
+            <key type="filename">../png/black/tank/black_tank_0+150.png</key>
+            <key type="filename">../png/black/tank/black_tank_0+165.png</key>
+            <key type="filename">../png/black/tank/black_tank_0+180.png</key>
+            <key type="filename">../png/black/tank/black_tank_0+30.png</key>
+            <key type="filename">../png/black/tank/black_tank_0+45.png</key>
+            <key type="filename">../png/black/tank/black_tank_0+60.png</key>
+            <key type="filename">../png/black/tank/black_tank_0+75.png</key>
+            <key type="filename">../png/black/tank/black_tank_0+90.png</key>
+            <key type="filename">../png/black/tank/black_tank_0-0.png</key>
+            <key type="filename">../png/black/tank/black_tank_0-105.png</key>
+            <key type="filename">../png/black/tank/black_tank_0-120.png</key>
+            <key type="filename">../png/black/tank/black_tank_0-135.png</key>
+            <key type="filename">../png/black/tank/black_tank_0-15.png</key>
+            <key type="filename">../png/black/tank/black_tank_0-150.png</key>
+            <key type="filename">../png/black/tank/black_tank_0-165.png</key>
+            <key type="filename">../png/black/tank/black_tank_0-30.png</key>
+            <key type="filename">../png/black/tank/black_tank_0-45.png</key>
+            <key type="filename">../png/black/tank/black_tank_0-60.png</key>
+            <key type="filename">../png/black/tank/black_tank_0-75.png</key>
+            <key type="filename">../png/black/tank/black_tank_0-90.png</key>
+            <key type="filename">../png/black/turret/black_turret_0+105.png</key>
+            <key type="filename">../png/black/turret/black_turret_0+120.png</key>
+            <key type="filename">../png/black/turret/black_turret_0+135.png</key>
+            <key type="filename">../png/black/turret/black_turret_0+15.png</key>
+            <key type="filename">../png/black/turret/black_turret_0+150.png</key>
+            <key type="filename">../png/black/turret/black_turret_0+165.png</key>
+            <key type="filename">../png/black/turret/black_turret_0+180.png</key>
+            <key type="filename">../png/black/turret/black_turret_0+30.png</key>
+            <key type="filename">../png/black/turret/black_turret_0+45.png</key>
+            <key type="filename">../png/black/turret/black_turret_0+60.png</key>
+            <key type="filename">../png/black/turret/black_turret_0+75.png</key>
+            <key type="filename">../png/black/turret/black_turret_0+90.png</key>
+            <key type="filename">../png/black/turret/black_turret_0-0.png</key>
+            <key type="filename">../png/black/turret/black_turret_0-105.png</key>
+            <key type="filename">../png/black/turret/black_turret_0-120.png</key>
+            <key type="filename">../png/black/turret/black_turret_0-135.png</key>
+            <key type="filename">../png/black/turret/black_turret_0-15.png</key>
+            <key type="filename">../png/black/turret/black_turret_0-150.png</key>
+            <key type="filename">../png/black/turret/black_turret_0-165.png</key>
+            <key type="filename">../png/black/turret/black_turret_0-30.png</key>
+            <key type="filename">../png/black/turret/black_turret_0-45.png</key>
+            <key type="filename">../png/black/turret/black_turret_0-60.png</key>
+            <key type="filename">../png/black/turret/black_turret_0-75.png</key>
+            <key type="filename">../png/black/turret/black_turret_0-90.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>39,39,78,78</rect>
+                <key>scale9Paddings</key>
+                <rect>39,39,78,78</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../png/bullet/gunner00.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>4,1,8,1</rect>
+                <key>scale9Paddings</key>
+                <rect>4,1,8,1</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">../png/red/soldier_red_000.png</key>
             <key type="filename">../png/red/soldier_red_001.png</key>
             <key type="filename">../png/red/soldier_red_002.png</key>
@@ -259,11 +344,26 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../png/tree/tree+135.png</key>
+            <key type="filename">../png/tree/tree+45.png</key>
+            <key type="filename">../png/tree/tree-135.png</key>
+            <key type="filename">../png/tree/tree-45.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>96,96,192,192</rect>
+                <key>scale9Paddings</key>
+                <rect>96,96,192,192</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>../png/red</filename>
-            <filename>../png/black</filename>
+            <filename>../png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

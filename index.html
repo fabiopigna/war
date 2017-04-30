@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>PiXi</title>
+  <base href="/">
+
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+  <!--<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />-->
+  <!--<meta name="viewport" content="initial-scale=0.3, maximum-scale=3.0, minimum-scale=0.0,target-densitydpi=device-dpi, user-scalable=no" />-->
+  <!--<script src="node_modules/pixi.js/dist/pixi.js"></script>-->
+  <script src="node_modules/systemjs/dist/system.js"></script>
+  <script src="node_modules/typescript/lib/typescript.js"></script>
+  <script>
+    System.config({
+      packages: {
+        "ts": {
+          "main": "lib/plugin.js"
+        },
+        "typescript": {
+          "main": "lib/typescript.js",
+          "meta": {
+            "lib/typescript.js": {
+              "exports": "ts"
+            }
+          }
+        },
+        "src": {
+          "defaultExtension": "ts",
+          "meta": {
+            "*.ts": {
+              "loader": "ts"
+            }
+          }
+        }
+      },
+      map: {
+        "ts": "node_modules/plugin-typescript",
+        "typescript": "node_modules/typescript",
+        "pixi.js": "node_modules/pixi.js/dist/pixi.js"
+      },
+      transpiler: 'ts'
+    });
+
+
+    System
+      .import('src/main.ts')
+      .then(null, console.error.bind(console));
+  </script>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+
+</body>
+
+</html>

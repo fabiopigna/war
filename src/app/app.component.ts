@@ -16,16 +16,16 @@ import { TextureLibrary } from './graphics/TextureLibrary';
 import { Army } from './units/army/Army';
 import { autoDetectRenderer } from 'pixi.js';
 import { SystemRenderer, Container, Graphics, Application, Point, particles, Sprite, Texture, extras, loaders } from 'pixi.js';
-import { Component, ElementRef, OnInit } from '@angular/core';
+// import { Component, ElementRef, OnInit } from '@angular/core';
 
 
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
-export class AppComponent implements OnInit {
+// @Component({
+//   selector: 'app-root',
+//   templateUrl: './app.component.html',
+//   styleUrls: ['./app.component.css']
+// })
+export class AppComponent {
   title = 'app works!';
 
   public fps: any;
@@ -38,8 +38,9 @@ export class AppComponent implements OnInit {
   public textureLibrary: TextureLibrary;
 
 
-  constructor(private elementRef: ElementRef) {
+  constructor() {
     this.textureLibrary = new TextureLibrary();
+    this.ngOnInit();
   }
 
   public requestFullscreen(): void {
@@ -61,14 +62,14 @@ export class AppComponent implements OnInit {
     this.app.renderer.view.style.left = '0px';
 
 
-    this.elementRef.nativeElement.appendChild(this.app.view);
+    document.body.appendChild(this.app.view);
     this.textureLibrary.load().onComplete.add(() => {
 
       this.env = new Environment(this.map, this.textureLibrary);
 
       this.env.debug = { map: new Map(), container: null };
       this.env.world = new World(this.env, worldConfig, this.app.stage);
-      this.env.debug. container = this.env.world.getContainer();
+      this.env.debug.container = this.env.world.getContainer();
 
       let treeBuilder = new TreeBuilder(this.env, this.env.world);
       treeBuilder.build();
@@ -86,7 +87,7 @@ export class AppComponent implements OnInit {
       let blackBounds: GBounds = GBounds.from(0, 0, this.env.world.getBounds().width * 0.5, this.env.world.getBounds().height);
 
       this.blackArmy = new Army(this.env);
-      this.blackArmy.createSoldiers(10, blackBounds, blackSoldierConfig);
+      this.blackArmy.createSoldiers(50, blackBounds, blackSoldierConfig);
       this.blackArmy.createTanks(1, blackBounds, tankConfig);
 
       let redConfig: SoldierConfig = new SoldierConfig();
@@ -95,7 +96,7 @@ export class AppComponent implements OnInit {
       let redBounds: GBounds = GBounds.from(this.env.world.getBounds().width * 0.5, 0, this.env.world.getBounds().width * 0.5, this.env.world.getBounds().height);
 
       this.redArmy = new Army(this.env);
-      this.redArmy.createSoldiers(10, redBounds, redConfig);
+      this.redArmy.createSoldiers(50, redBounds, redConfig);
 
       this.app.ticker.add((delta) => this.gameLoop(delta));
     });
