@@ -26,11 +26,12 @@ export class GAngle {
     }
 
     public rotateTo(anotherAngle: GAngle, rotationSpeed: number): void {
+        this.value = anotherAngle.flipFlop(this).getValue();
         this.value = anotherAngle.value * rotationSpeed + this.value * (1 - rotationSpeed);
     }
 
     public normalizeTo(maxValue: number): number {
-        return (((this.value + Math.PI) / (2 * Math.PI)) * maxValue) % maxValue;
+        return Math.round((((this.value + Math.PI) / (2 * Math.PI)) * maxValue) % maxValue);
     }
 
     public isClose(anotherAngle: GAngle, tollerance: number): boolean {

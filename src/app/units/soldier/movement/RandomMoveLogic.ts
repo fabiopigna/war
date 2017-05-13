@@ -40,4 +40,8 @@ export class RandomMoveLogic implements IMoveLogic {
     public setTarget(point: GPoint): void {
         // do nothings
     }
+
+    public getMoveStep(): number {
+       return 0;
+    }
 }

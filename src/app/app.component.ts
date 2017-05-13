@@ -43,9 +43,6 @@ export class AppComponent {
     this.ngOnInit();
   }
 
-  public requestFullscreen(): void {
-    document.documentElement.webkitRequestFullscreen();
-  }
 
   ngOnInit(): void {
 
@@ -87,8 +84,8 @@ export class AppComponent {
       let blackBounds: GBounds = GBounds.from(0, 0, this.env.world.getBounds().width * 0.5, this.env.world.getBounds().height);
 
       this.blackArmy = new Army(this.env);
-      this.blackArmy.createSoldiers(50, blackBounds, blackSoldierConfig);
-      this.blackArmy.createTanks(1, blackBounds, tankConfig);
+      this.blackArmy.createSoldiers(1, blackBounds, blackSoldierConfig);
+      this.blackArmy.createTanks(0, blackBounds, tankConfig);
 
       let redConfig: SoldierConfig = new SoldierConfig();
       redConfig.spriteConfig = this.textureLibrary.soldierRed;
@@ -96,7 +93,7 @@ export class AppComponent {
       let redBounds: GBounds = GBounds.from(this.env.world.getBounds().width * 0.5, 0, this.env.world.getBounds().width * 0.5, this.env.world.getBounds().height);
 
       this.redArmy = new Army(this.env);
-      this.redArmy.createSoldiers(50, redBounds, redConfig);
+      this.redArmy.createSoldiers(0, redBounds, redConfig);
 
       this.app.ticker.add((delta) => this.gameLoop(delta));
     });
@@ -104,13 +101,13 @@ export class AppComponent {
 
 
   public gameLoop(delta: number): void {
-    this.fps = this.app.ticker.FPS.toFixed(0);
     this.env.updateQuadTree();
     this.map.forEach((unit: IUnit) => {
       unit.updateLogic(delta);
     });
-
-    this.env.debug.map.forEach(unit => unit.updateLogic());
+    if (this.env.isDebug) {
+      this.env.debug.map.forEach(unit => unit.updateLogic());
+    }
   }
 }
 

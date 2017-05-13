@@ -223,6 +223,126 @@
             <key type="filename">../png/black/soldier/black_soldier-0-60.png</key>
             <key type="filename">../png/black/soldier/black_soldier-0-75.png</key>
             <key type="filename">../png/black/soldier/black_soldier-0-90.png</key>
+            <key type="filename">../png/black/soldier/move/+105/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/+105/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/+105/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/+105/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/+105/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/+120/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/+120/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/+120/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/+120/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/+120/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/+135/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/+135/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/+135/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/+135/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/+135/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/+15/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/+15/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/+15/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/+15/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/+15/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/+150/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/+150/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/+150/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/+150/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/+150/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/+165/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/+165/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/+165/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/+165/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/+165/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/+180/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/+180/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/+180/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/+180/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/+180/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/+30/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/+30/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/+30/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/+30/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/+30/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/+45/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/+45/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/+45/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/+45/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/+45/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/+60/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/+60/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/+60/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/+60/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/+60/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/+75/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/+75/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/+75/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/+75/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/+75/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/+90/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/+90/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/+90/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/+90/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/+90/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/-0/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/-0/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/-0/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/-0/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/-0/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/-105/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/-105/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/-105/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/-105/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/-105/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/-120/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/-120/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/-120/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/-120/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/-120/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/-135/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/-135/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/-135/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/-135/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/-135/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/-15/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/-15/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/-15/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/-15/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/-15/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/-150/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/-150/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/-150/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/-150/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/-150/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/-165/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/-165/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/-165/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/-165/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/-165/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/-30/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/-30/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/-30/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/-30/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/-30/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/-45/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/-45/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/-45/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/-45/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/-45/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/-60/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/-60/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/-60/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/-60/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/-60/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/-75/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/-75/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/-75/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/-75/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/-75/step_4.png</key>
+            <key type="filename">../png/black/soldier/move/-90/step_0.png</key>
+            <key type="filename">../png/black/soldier/move/-90/step_1.png</key>
+            <key type="filename">../png/black/soldier/move/-90/step_2.png</key>
+            <key type="filename">../png/black/soldier/move/-90/step_3.png</key>
+            <key type="filename">../png/black/soldier/move/-90/step_4.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -344,6 +464,20 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../png/soldier_step0-00.2d.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>76,76,152,152</rect>
+                <key>scale9Paddings</key>
+                <rect>76,76,152,152</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../png/soldier_step0-00.iso.png</key>
             <key type="filename">../png/tree/tree+135.png</key>
             <key type="filename">../png/tree/tree+45.png</key>
             <key type="filename">../png/tree/tree-135.png</key>
@@ -357,6 +491,19 @@
                 <rect>96,96,192,192</rect>
                 <key>scale9Paddings</key>
                 <rect>96,96,192,192</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../png/soldier_step0-01.iso.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>15,19,31,38</rect>
+                <key>scale9Paddings</key>
+                <rect>15,19,31,38</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

@@ -94,9 +94,7 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
         if (target) {
             let targetAngle: GAngle = this.weapon.getRotationToTarget(target);
             if (targetAngle) {
-                this.angle = targetAngle.flipFlop(this.angle);
                 this.angle.rotateTo(targetAngle, this.config.rotationSpeed);
-
             }
             if (this.weapon.needToReload()) {
                 this.weapon.reload();
@@ -107,7 +105,14 @@ export class Soldier extends Unit implements IInteractiveUnit, IGroundableUnit, 
             this.moveLogic.updateLogic(delta);
             this.container.position.set(this.containerBounds.x, this.containerBounds.y);
         }
-        this.sprite.gotoAndStop(this.angle.normalizeTo(this.config.frameNumber));
+        this.updateSpriteFrame();
+    }
+
+    private updateSpriteFrame(): void {
+        let rotationFrame: number = this.angle.normalizeTo(this.config.frameNumber);
+        let moveframe: number = this.moveLogic.getMoveStep();
+        let currentFrame = rotationFrame * this.config.spriteConfig.moveFrames + moveframe;
+        this.sprite.gotoAndStop(currentFrame);
     }
 
     public getTargetableBounds(): GBounds {
